@@ -6,6 +6,8 @@ build/
 
 # Database & OS
 *.db
-!stashbook-engine/stashbook.db
 *.sqlite
 .DS_Store
+
+# Allow GitHub Actions to commit the DB
+!stashbook-engine/stashbook.db
