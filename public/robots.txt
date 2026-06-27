@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stashbook.pages.dev/sitemap.xml
