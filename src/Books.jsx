@@ -9,7 +9,7 @@ export default function Books() {
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/books')
+    fetch('/books.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

@@ -9,7 +9,7 @@ export default function IconicItems() {
   const [selectedGame, setSelectedGame] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/games')
+    fetch('/games.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
