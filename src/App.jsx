@@ -1,19 +1,11 @@
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import Home from './Home';
 import ErrorBoundary from './ErrorBoundary';
 
+const Home = lazy(() => import('./Home'));
 const About = lazy(() => import('./About'));
 const IconicItems = lazy(() => import('./IconicItems'));
 const Books = lazy(() => import('./Books'));
-
-function RouteFallback() {
-  return (
-    <div className="w-full flex justify-center py-16">
-      <p className="text-retro-gray uppercase text-xs tracking-widest animate-pulse">Loading...</p>
-    </div>
-  );
-}
 
 function Navigation() {
   const location = useLocation();
@@ -46,7 +38,7 @@ export default function App() {
         <Navigation />
 
         <ErrorBoundary>
-          <Suspense fallback={<RouteFallback />}>
+          <Suspense fallback={<div className="text-retro-white text-center p-10 font-['Press_Start_2P'] text-xs md:text-sm drop-shadow-[2px_2px_0_var(--color-retro-orange)]">LOADING...</div>}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
