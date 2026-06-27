@@ -66,15 +66,13 @@ export default function Home() {
 
     return Object.entries(groupedGames).map(([platformName, platformGames]) => (
       <div key={platformName} className="mb-10 md:mb-16 w-full flex flex-col items-center">
-        <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-8 w-full max-w-[90rem] px-2 md:px-6">
-          <div className="hidden sm:block h-[2px] flex-grow bg-retro-gray/20"></div>
-          <h3 className="text-[10px] sm:text-sm md:text-xl lg:text-2xl text-retro-white tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[2px_2px_0_rgba(255,107,0,0.5)] text-center break-words line-clamp-2 px-2">
+        <div className="text-center w-full flex justify-center items-center mb-6 md:mb-8 px-2 md:px-6">
+          <h3 className="text-[10px] sm:text-sm md:text-xl lg:text-2xl text-retro-white tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[2px_2px_0_rgba(255,107,0,0.5)] break-words line-clamp-2">
             {platformName}
           </h3>
-          <div className="hidden sm:block h-[2px] flex-grow bg-retro-gray/20"></div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 w-full max-w-5xl mx-auto px-2 md:px-6 justify-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-5xl mx-auto px-2 md:px-6 justify-items-center">
           {platformGames.map((game) => (
             <GameCard 
               key={game.id}
@@ -101,7 +99,7 @@ export default function Home() {
     <div className="w-full overflow-x-hidden">
       <section className="w-full min-h-[40vh] md:min-h-[60vh] flex flex-col items-center justify-center text-center px-2 md:px-6 border-b border-retro-gray/20 mb-8 md:mb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.2em] uppercase text-retro-white drop-shadow-[4px_4px_0_var(--color-retro-orange)] z-10 mb-4 md:mb-6 break-words max-w-full px-2">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.2em] uppercase text-retro-white drop-shadow-[2px_2px_0_var(--color-retro-orange)] md:drop-shadow-[4px_4px_0_var(--color-retro-orange)] z-10 mb-4 md:mb-6 break-words max-w-full px-2">
           StashBook
         </h1>
         <button onClick={scrollToLoot} className="z-10 border-2 border-retro-orange text-retro-orange px-4 md:px-8 py-2 md:py-3 text-[10px] md:text-xs lg:text-sm tracking-widest uppercase hover:bg-retro-orange hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)]">

@@ -40,7 +40,7 @@ export default function Books() {
       ) : books.length === 0 ? (
         <div className="text-center text-[10px] md:text-sm text-retro-gray uppercase mt-8 opacity-50">No digital assets found.</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 w-full max-w-5xl mx-auto justify-items-center">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-5xl mx-auto justify-items-center">
           {books.map(book => (
             <GameCard
               key={book.id}

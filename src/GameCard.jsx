@@ -20,14 +20,14 @@ export default function GameCard({ title, platform, image, isExpired, price, onC
   return (
     <div
       onClick={onClick}
-      className={`w-36 md:w-44 border-2 p-2.5 bg-black flex flex-col gap-3 group transition-all duration-200 relative
+      className={`w-full max-w-44 border-2 p-2 md:p-2.5 bg-black flex flex-col gap-2 md:gap-3 group transition-all duration-200 relative
                     ${isExpired
                       ? 'border-retro-gray/30 opacity-50 cursor-not-allowed'
-                      : 'border-retro-gray hover:border-retro-orange hover:-translate-y-1 hover:shadow-[4px_4px_0_0_var(--color-retro-orange)] cursor-pointer'}`}
+                      : 'border-retro-gray hover:border-retro-orange active:border-retro-orange hover:-translate-y-1 active:scale-95 active:-translate-y-0 hover:shadow-[4px_4px_0_0_var(--color-retro-orange)] active:shadow-[2px_2px_0_0_var(--color-retro-orange)] cursor-pointer'}`}
     >
       <div
         className={`relative overflow-hidden border transition-colors duration-200 aspect-[460/215] w-full h-24 md:h-28 bg-retro-gray/10
-                      ${isExpired ? 'border-retro-gray/30' : 'border-retro-gray group-hover:border-retro-orange'}`}
+                      ${isExpired ? 'border-retro-gray/30' : 'border-retro-gray group-hover:border-retro-orange group-active:border-retro-orange'}`}
       >
         {!imageLoaded && (
           <div className="absolute inset-0 bg-retro-gray/20 animate-pulse" aria-hidden="true" />
@@ -41,7 +41,7 @@ export default function GameCard({ title, platform, image, isExpired, price, onC
           decoding="async"
           onLoad={() => setImageLoaded(true)}
           className={`w-full h-full object-cover transition-all duration-300
-                      ${!imageLoaded ? 'opacity-0' : isExpired ? 'grayscale opacity-30' : 'grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100'}`}
+                      ${!imageLoaded ? 'opacity-0' : isExpired ? 'grayscale opacity-30' : 'grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-active:grayscale-0 group-active:opacity-100'}`}
         />
       </div>
 
