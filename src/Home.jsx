@@ -72,7 +72,7 @@ export default function Home() {
           </h3>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full max-w-5xl mx-auto px-2 md:px-6 justify-items-center">
+        <div className="flex flex-wrap justify-center gap-4 w-full max-w-5xl mx-auto px-2 md:px-6">
           {platformGames.map((game) => (
             <GameCard 
               key={game.id}
