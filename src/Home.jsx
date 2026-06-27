@@ -56,7 +56,7 @@ export default function Home() {
   const renderGroupedSections = (gamesList, isExpiredView) => {
     if (gamesList.length === 0) {
       return (
-        <div className="text-center text-retro-gray uppercase mt-8 opacity-50 min-h-[30vh]">
+        <div className="text-center text-[10px] md:text-sm text-retro-gray uppercase mt-8 opacity-50 min-h-[30vh] px-2 break-words">
           {isExpiredView ? 'Vault is empty. No expired games tracked yet.' : 'No free games found right now.'}
         </div>
       );
@@ -65,16 +65,16 @@ export default function Home() {
     const groupedGames = groupGamesByPlatform(gamesList);
 
     return Object.entries(groupedGames).map(([platformName, platformGames]) => (
-      <div key={platformName} className="mb-16 w-full flex flex-col items-center">
-        <div className="flex items-center gap-4 mb-8 w-full max-w-[90rem] px-6">
-          <div className="h-[2px] flex-grow bg-retro-gray/20"></div>
-          <h3 className="text-xl md:text-2xl text-retro-white tracking-[0.3em] uppercase drop-shadow-[2px_2px_0_rgba(255,107,0,0.5)] text-center">
+      <div key={platformName} className="mb-10 md:mb-16 w-full flex flex-col items-center">
+        <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-8 w-full max-w-[90rem] px-2 md:px-6">
+          <div className="hidden sm:block h-[2px] flex-grow bg-retro-gray/20"></div>
+          <h3 className="text-[10px] sm:text-sm md:text-xl lg:text-2xl text-retro-white tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[2px_2px_0_rgba(255,107,0,0.5)] text-center break-words line-clamp-2 px-2">
             {platformName}
           </h3>
-          <div className="h-[2px] flex-grow bg-retro-gray/20"></div>
+          <div className="hidden sm:block h-[2px] flex-grow bg-retro-gray/20"></div>
         </div>
         
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 w-full max-w-5xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6 w-full max-w-5xl mx-auto px-2 md:px-6 justify-items-center">
           {platformGames.map((game) => (
             <GameCard 
               key={game.id}
@@ -98,23 +98,23 @@ export default function Home() {
   };
 
   return (
-    <>
-      <section className="w-full min-h-[50vh] md:min-h-[60vh] flex flex-col items-center justify-center text-center px-6 border-b border-retro-gray/20 mb-16 relative overflow-hidden">
+    <div className="w-full overflow-x-hidden">
+      <section className="w-full min-h-[40vh] md:min-h-[60vh] flex flex-col items-center justify-center text-center px-2 md:px-6 border-b border-retro-gray/20 mb-8 md:mb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl tracking-[0.2em] uppercase text-retro-white drop-shadow-[4px_4px_0_var(--color-retro-orange)] z-10 mb-6">
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.2em] uppercase text-retro-white drop-shadow-[4px_4px_0_var(--color-retro-orange)] z-10 mb-4 md:mb-6 break-words max-w-full px-2">
           StashBook
         </h1>
-        <button onClick={scrollToLoot} className="z-10 border-2 border-retro-orange text-retro-orange px-8 py-3 text-xs md:text-sm tracking-widest uppercase hover:bg-retro-orange hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)]">
+        <button onClick={scrollToLoot} className="z-10 border-2 border-retro-orange text-retro-orange px-4 md:px-8 py-2 md:py-3 text-[10px] md:text-xs lg:text-sm tracking-widest uppercase hover:bg-retro-orange hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)]">
           [ Access Loot ]
         </button>
       </section>
 
-      <div id="loot-section" className="flex flex-col w-full items-center pt-4 flex-grow mb-10">
-        <div className="flex gap-8 mb-12 border-b border-retro-gray/50 pb-2 px-6">
-          <button onClick={() => setView('active')} className={`text-sm tracking-widest uppercase transition-colors duration-300 ${view === 'active' ? 'text-retro-orange drop-shadow-[0_0_8px_rgba(255,107,0,0.5)]' : 'text-retro-gray hover:text-retro-white'}`}>
+      <div id="loot-section" className="flex flex-col w-full items-center pt-2 md:pt-4 flex-grow mb-6 md:mb-10 overflow-x-hidden">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-8 mb-8 md:mb-12 border-b border-retro-gray/50 pb-2 px-2 md:px-6 items-center justify-center">
+          <button onClick={() => setView('active')} className={`text-[10px] md:text-sm tracking-widest uppercase transition-colors duration-300 ${view === 'active' ? 'text-retro-orange drop-shadow-[0_0_8px_rgba(255,107,0,0.5)]' : 'text-retro-gray hover:text-retro-white'}`}>
             Active Offers
           </button>
-          <button onClick={() => setView('expired')} className={`text-sm tracking-widest uppercase transition-colors duration-300 ${view === 'expired' ? 'text-retro-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-retro-gray hover:text-retro-white'}`}>
+          <button onClick={() => setView('expired')} className={`text-[10px] md:text-sm tracking-widest uppercase transition-colors duration-300 ${view === 'expired' ? 'text-retro-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-retro-gray hover:text-retro-white'}`}>
             Expired Vault
           </button>
         </div>
@@ -133,29 +133,29 @@ export default function Home() {
       </div>
 
       {selectedGame && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-4 bg-black/80 backdrop-blur-sm overflow-x-hidden">
           <div className="absolute inset-0 cursor-pointer" onClick={closeModal}></div>
-          <div className="relative bg-black border-2 border-retro-orange p-8 w-full max-w-xl shadow-[8px_8px_0_0_var(--color-retro-orange)] animate-[fadeIn_0.2s_ease-out]">
-            <button onClick={closeModal} className="absolute top-3 right-4 text-retro-gray hover:text-retro-orange text-xl font-bold transition-colors z-10">[X]</button>
-            <div className="flex flex-col gap-5 mt-4">
+          <div className="relative bg-black border-2 border-retro-orange p-4 md:p-8 w-full max-w-xl shadow-[8px_8px_0_0_var(--color-retro-orange)] animate-[fadeIn_0.2s_ease-out] overflow-hidden">
+            <button onClick={closeModal} className="absolute top-2 right-3 md:top-3 md:right-4 text-retro-gray hover:text-retro-orange text-sm md:text-xl font-bold transition-colors z-10">[X]</button>
+            <div className="flex flex-col gap-3 md:gap-5 mt-4">
               <div className="flex flex-col gap-2">
-                <h2 className="text-2xl md:text-3xl text-retro-white uppercase tracking-wider leading-tight">{selectedGame.title}</h2>
-                <div className="flex justify-between items-center border-b border-retro-gray/30 pb-3">
-                  <span className="text-sm text-retro-gray uppercase tracking-wider">{selectedGame.platform}</span>
-                  <span className="text-sm text-retro-orange animate-pulse font-bold tracking-widest">{selectedGame.is_expired ? 'OFFER EXPIRED' : 'FREE (100% OFF)'}</span>
+                <h2 className="text-sm md:text-2xl lg:text-3xl text-retro-white uppercase tracking-wider leading-tight break-words line-clamp-3 pr-6">{selectedGame.title}</h2>
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-2 border-b border-retro-gray/30 pb-3">
+                  <span className="text-[10px] md:text-sm text-retro-gray uppercase tracking-wider truncate">{selectedGame.platform}</span>
+                  <span className="text-[10px] md:text-sm text-retro-orange animate-pulse font-bold tracking-widest shrink-0">{selectedGame.is_expired ? 'OFFER EXPIRED' : 'FREE (100% OFF)'}</span>
                 </div>
               </div>
               <div className="py-2">
-                <h4 className="text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h4>
-                <p className="text-xs md:text-sm text-retro-white leading-relaxed max-h-48 overflow-y-auto pr-3 custom-scrollbar">{selectedGame.description || "No description available for this game."}</p>
+                <h4 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h4>
+                <p className="text-[10px] md:text-xs lg:text-sm text-retro-white leading-relaxed max-h-48 overflow-y-auto pr-2 md:pr-3 custom-scrollbar break-words">{selectedGame.description || "No description available for this game."}</p>
               </div>
-              <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-retro-gray/30">
+              <div className="flex flex-col gap-3 md:gap-4 mt-2 md:mt-4 pt-3 md:pt-4 border-t border-retro-gray/30">
                 {!selectedGame.is_expired && (
-                  <div className="text-xs text-retro-white uppercase tracking-wider text-center">
+                  <div className="text-[10px] md:text-xs text-retro-white uppercase tracking-wider text-center break-words">
                     Valid Until: <span className="text-retro-orange font-bold">{selectedGame.end_date || "Limited Time"}</span>
                   </div>
                 )}
-                <a href={selectedGame.game_url || "#"} target="_blank" rel="noopener noreferrer" className={`block text-center py-3 border-2 uppercase text-xs md:text-sm tracking-[0.3em] font-bold transition-all duration-300 ${selectedGame.is_expired ? 'border-retro-gray/50 text-retro-gray/50 cursor-not-allowed pointer-events-none' : 'border-retro-orange text-retro-orange hover:bg-retro-orange hover:text-black hover:shadow-[0_0_15px_var(--color-retro-orange)]'}`}>
+                <a href={selectedGame.game_url || "#"} target="_blank" rel="noopener noreferrer" className={`block text-center py-2 md:py-3 border-2 uppercase text-[10px] md:text-xs lg:text-sm tracking-[0.2em] md:tracking-[0.3em] font-bold transition-all duration-300 ${selectedGame.is_expired ? 'border-retro-gray/50 text-retro-gray/50 cursor-not-allowed pointer-events-none' : 'border-retro-orange text-retro-orange hover:bg-retro-orange hover:text-black hover:shadow-[0_0_15px_var(--color-retro-orange)]'}`}>
                   {selectedGame.is_expired ? 'Offer Ended' : 'Get It Now'}
                 </a>
               </div>
@@ -163,6 +163,6 @@ export default function Home() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

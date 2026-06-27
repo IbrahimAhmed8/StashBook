@@ -21,16 +21,16 @@ function Navigation() {
   const getLinkClass = (path) => {
     const isActive = location.pathname === path;
     return isActive
-      ? "text-xs md:text-sm tracking-widest uppercase text-retro-orange drop-shadow-[0_0_8px_rgba(255,107,0,0.5)]"
-      : "text-xs md:text-sm tracking-widest uppercase text-retro-gray hover:text-retro-white transition-colors duration-300";
+      ? "text-[8px] md:text-xs lg:text-sm tracking-widest uppercase text-retro-orange drop-shadow-[0_0_8px_rgba(255,107,0,0.5)]"
+      : "text-[8px] md:text-xs lg:text-sm tracking-widest uppercase text-retro-gray hover:text-retro-white transition-colors duration-300";
   };
 
   return (
-    <nav className="w-full border-b border-retro-gray/30 bg-black/90 backdrop-blur-md sticky top-0 z-40 flex justify-between items-center py-4 px-6 md:px-12">
-      <Link to="/" className="text-xl md:text-2xl font-bold tracking-widest uppercase text-retro-white drop-shadow-[2px_2px_0_var(--color-retro-orange)] cursor-pointer">
+    <nav className="w-full border-b border-retro-gray/30 bg-black/90 backdrop-blur-md sticky top-0 z-40 flex flex-col md:flex-row justify-center md:justify-between items-center gap-2 md:gap-0 py-2 md:py-4 px-2 md:px-6 lg:px-12">
+      <Link to="/" className="text-sm md:text-xl lg:text-2xl font-bold tracking-widest uppercase text-retro-white drop-shadow-[2px_2px_0_var(--color-retro-orange)] cursor-pointer">
         SB
       </Link>
-      <div className="flex gap-6 md:gap-10 items-center">
+      <div className="flex flex-wrap justify-center gap-3 md:gap-6 lg:gap-10 items-center">
         <Link to="/" className={getLinkClass('/')}>Games</Link>
         <Link to="/books" className={getLinkClass('/books')}>Books</Link>
         <Link to="/iconic" className={getLinkClass('/iconic')}>Iconic Items</Link>
@@ -42,7 +42,7 @@ function Navigation() {
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col items-center relative bg-black">
+      <div className="min-h-screen flex flex-col items-center relative bg-black overflow-x-hidden w-full max-w-[100vw]">
         <Navigation />
 
         <ErrorBoundary>
@@ -56,8 +56,8 @@ export default function App() {
           </Suspense>
         </ErrorBoundary>
 
-        <footer className="w-full border-t border-retro-gray/30 bg-black pt-8 pb-6 flex flex-col items-center gap-6 mt-auto">
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-[10px] md:text-xs tracking-widest uppercase text-retro-gray">
+        <footer className="w-full border-t border-retro-gray/30 bg-black pt-4 md:pt-8 pb-4 md:pb-6 flex flex-col items-center gap-3 md:gap-6 mt-auto px-2">
+          <div className="flex flex-wrap justify-center gap-3 md:gap-6 lg:gap-10 text-[8px] md:text-[10px] lg:text-xs tracking-widest uppercase text-retro-gray">
             <Link to="/about" className="hover:text-retro-orange transition-colors duration-300">About</Link>
             <Link to="/" className="hover:text-retro-orange transition-colors duration-300">Contact Us</Link>
           </div>
