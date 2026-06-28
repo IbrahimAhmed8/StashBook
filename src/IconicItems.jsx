@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
+
+const DEFAULT_DESCRIPTION = 'StashBook is your daily loot drop for free game deals, developer books, and curated tech gear—save money and level up your setup without the grind.';
+const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, iconic drops, steam sales';
 
 export default function IconicItems() {
   const [games, setGames] = useState([]);
@@ -57,6 +61,12 @@ export default function IconicItems() {
       )}
 
       {selectedGame && (
+        <>
+        <Helmet>
+          <title>{selectedGame.title} - Stashbook Free Deals</title>
+          <meta name="description" content={selectedGame.description?.trim() || DEFAULT_DESCRIPTION} />
+          <meta name="keywords" content={selectedGame.seo_keywords?.trim() || DEFAULT_KEYWORDS} />
+        </Helmet>
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-4 bg-black/80 backdrop-blur-sm overflow-x-hidden">
           <div className="absolute inset-0 cursor-pointer" onClick={closeModal}></div>
           <div className="relative bg-black border-2 border-retro-orange p-4 md:p-8 w-full max-w-xl shadow-[8px_8px_0_0_var(--color-retro-orange)] animate-[fadeIn_0.2s_ease-out] overflow-hidden">
@@ -90,6 +100,7 @@ export default function IconicItems() {
             </div>
           </div>
         </div>
+        </>
       )}
     </div>
   );
