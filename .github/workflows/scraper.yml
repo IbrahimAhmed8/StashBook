@@ -11,6 +11,8 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    env:
+      ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
 
     steps:
       - name: Checkout repository
@@ -31,5 +33,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/games.json public/books.json stashbook-engine/stashbook.db
-          git diff --staged --quiet || git commit -m "chore: auto-update assets"
-          git push
+          git diff --staged --quiet || (git commit -m "chore: auto-update assets" && git pull --rebase origin main && git push)
