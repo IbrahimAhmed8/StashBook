@@ -81,6 +81,7 @@ type GameResponse struct {
 	Description   string  `json:"description"`
 	EndDate       string  `json:"end_date"`
 	GameURL       string  `json:"game_url"`
+	SeoKeywords   string  `json:"seo_keywords"`
 }
 
 type DBooksResponse struct {
@@ -102,6 +103,7 @@ type BookResponse struct {
 	ImageURL    string `json:"image"`
 	Description string `json:"description"`
 	BookURL     string `json:"book_url"`
+	SeoKeywords string `json:"seo_keywords"`
 }
 
 var db *sql.DB
@@ -199,6 +201,7 @@ func initDB() {
 	execDB("ALTER TABLE free_games ADD COLUMN description TEXT DEFAULT ''")
 	execDB("ALTER TABLE free_games ADD COLUMN end_date TEXT DEFAULT ''")
 	execDB("ALTER TABLE free_games ADD COLUMN game_url TEXT DEFAULT ''")
+	execDB("ALTER TABLE free_games ADD COLUMN seo_keywords TEXT DEFAULT ''")
 
 	execDB("CREATE INDEX IF NOT EXISTS idx_free_games_title ON free_games(title)")
 	execDB("CREATE INDEX IF NOT EXISTS idx_free_games_is_expired ON free_games(is_expired)")
@@ -222,6 +225,8 @@ func initDB() {
         book_url TEXT
     );`
 	execDB(createBooksTable)
+
+	execDB("ALTER TABLE free_books ADD COLUMN seo_keywords TEXT DEFAULT ''")
 }
 
 func fetchAndStoreEpicGames() {
@@ -271,8 +276,9 @@ func fetchAndStoreEpicGames() {
 				desc = "Free game on the Epic Games Store."
 			}
 
-			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-			execDB(insertQuery, "epic_"+game.ID, game.Title, "Epic Games", imageUrl, float64(game.Price.TotalPrice.OriginalPrice)/100.0, desc, "Limited Time (Epic Weekly)", gameUrl)
+			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+			seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", game.Title, "Epic Games")
+			execDB(insertQuery, "epic_"+game.ID, game.Title, "Epic Games", imageUrl, float64(game.Price.TotalPrice.OriginalPrice)/100.0, desc, "Limited Time (Epic Weekly)", gameUrl, seoKeywords)
 			fmt.Println("💾 Saved Active (Epic):", game.Title)
 		}
 	}
@@ -347,8 +353,9 @@ func fetchAndStoreSteamGames() {
 				}
 				gameUrl := "https://store.steampowered.com/app/" + appID
 
-				insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-				execDB(insertQuery, "steam_live_"+appID, title, "Steam", headerImage, originalPrice, desc, "Limited Time", gameUrl)
+				insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+				seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", title, "Steam")
+				execDB(insertQuery, "steam_live_"+appID, title, "Steam", headerImage, originalPrice, desc, "Limited Time", gameUrl, seoKeywords)
 				fmt.Println("💾 Saved Active (Steam Live):", title)
 			}
 		}
@@ -387,8 +394,9 @@ func fetchCheapSharkDeals() {
 			gameUrl := "https://www.cheapshark.com/redirect?dealID=" + deal.DealID
 			desc := "This 100% off deal was found via CheapShark API."
 
-			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-			execDB(insertQuery, "cs_"+deal.DealID, deal.Title, platformLabel, deal.Thumb, normalPrice, desc, "Limited Time", gameUrl)
+			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+			seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, platformLabel)
+			execDB(insertQuery, "cs_"+deal.DealID, deal.Title, platformLabel, deal.Thumb, normalPrice, desc, "Limited Time", gameUrl, seoKeywords)
 			fmt.Println("💾 Saved Active (CheapShark):", deal.Title)
 		}
 	}
@@ -441,8 +449,9 @@ func selfTrackSteamHistory() {
 					gameUrl := "https://store.steampowered.com/app/" + appID
 					desc := "F2P Transition Tracked Nativey by StashBook Engine."
 
-					insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-					execDB(insertQuery, "tracker_"+appID, title, "Steam (Tracked F2P)", headerImage, lastPrice, desc, "Permanent", gameUrl)
+					insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+					seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", title, "Steam (Tracked F2P)")
+					execDB(insertQuery, "tracker_"+appID, title, "Steam (Tracked F2P)", headerImage, lastPrice, desc, "Permanent", gameUrl, seoKeywords)
 					fmt.Println("🚨 F2P TRANSITION CAUGHT BY TRACKER:", title)
 				}
 				execDB("UPDATE price_history SET last_price = ? WHERE app_id = ?", currentPrice, appID)
@@ -495,8 +504,9 @@ func fetchGamerPowerPrimeGames() {
 				endDate = "Unknown"
 			}
 
-			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-			execDB(insertQuery, "prime_"+strconv.Itoa(deal.ID), deal.Title, "Amazon Prime Gaming", deal.Thumbnail, originalPrice, deal.Description, endDate, deal.OpenGiveawayUrl)
+			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+			seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, "Amazon Prime Gaming")
+			execDB(insertQuery, "prime_"+strconv.Itoa(deal.ID), deal.Title, "Amazon Prime Gaming", deal.Thumbnail, originalPrice, deal.Description, endDate, deal.OpenGiveawayUrl, seoKeywords)
 			fmt.Println("💾 Saved Active (Prime Gaming):", deal.Title)
 		}
 	}
@@ -551,8 +561,9 @@ func fetchGamerPowerGlobalGames() {
 			endDate = "Unknown"
 		}
 
-		insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-		execDB(insertQuery, "gp_global_"+strconv.Itoa(deal.ID), deal.Title, displayPlatform, deal.Thumbnail, originalPrice, deal.Description, endDate, deal.OpenGiveawayUrl)
+		insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+		seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, displayPlatform)
+		execDB(insertQuery, "gp_global_"+strconv.Itoa(deal.ID), deal.Title, displayPlatform, deal.Thumbnail, originalPrice, deal.Description, endDate, deal.OpenGiveawayUrl, seoKeywords)
 
 		addedCount++
 	}
@@ -712,8 +723,9 @@ func fetchOfficialLegendaryDeals() {
 							shortDesc := getSteamDescription(appID)
 							desc := fmt.Sprintf("[ %.0f%% OFF ] %s", discountPercent, shortDesc)
 
-							insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-							execDB(insertQuery, "legendary_steam_"+appID, title, "Steam (Iconic)", headerImage, finalPrice, desc, "Unknown", gameUrl)
+							insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+							seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", title, "Steam (Iconic)")
+							execDB(insertQuery, "legendary_steam_"+appID, title, "Steam (Iconic)", headerImage, finalPrice, desc, "Unknown", gameUrl, seoKeywords)
 							fmt.Printf("🎯 STEAM ICONIC SECURED: %s (%.0f%% OFF)\n", title, discountPercent)
 							caughtCount++
 						}
@@ -746,8 +758,9 @@ func fetchOfficialLegendaryDeals() {
 				}
 				desc := fmt.Sprintf("[ %.0f%% OFF ] %s", savings, realDesc)
 
-				insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)`
-				execDB(insertQuery, "legendary_epic_"+deal.DealID, deal.Title, "Epic Games (Iconic)", deal.Thumb, salePrice, desc, "Unknown", gameUrl)
+				insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
+				seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, "Epic Games (Iconic)")
+				execDB(insertQuery, "legendary_epic_"+deal.DealID, deal.Title, "Epic Games (Iconic)", deal.Thumb, salePrice, desc, "Unknown", gameUrl, seoKeywords)
 				fmt.Printf("🎯 EPIC ICONIC SECURED: %s (%.0f%% OFF)\n", deal.Title, savings)
 				caughtCount++
 			}
@@ -777,8 +790,9 @@ func fetchFreeTechBooks() {
 			desc = "Official digital edition by " + b.Authors
 		}
 
-		insertQuery := `INSERT OR REPLACE INTO free_books (id, title, author, image_url, description, book_url) VALUES (?, ?, ?, ?, ?, ?)`
-		execDB(insertQuery, "dbook_"+b.ID, b.Title, b.Authors, b.Image, desc, b.URL)
+		insertQuery := `INSERT OR REPLACE INTO free_books (id, title, author, image_url, description, book_url, seo_keywords) VALUES (?, ?, ?, ?, ?, ?, ?)`
+		seoKeywords := fmt.Sprintf("Free %s, %s free book, programming, tech books", b.Title, b.Authors)
+		execDB(insertQuery, "dbook_"+b.ID, b.Title, b.Authors, b.Image, desc, b.URL, seoKeywords)
 		count++
 	}
 
@@ -807,7 +821,7 @@ func writeJSONFile(path string, data interface{}) error {
 }
 
 func writeGamesJSON() error {
-	query := "SELECT id, title, platform, image_url, original_price, description, end_date, game_url, MIN(is_expired) FROM free_games GROUP BY title"
+	query := "SELECT id, title, platform, image_url, original_price, description, end_date, game_url, seo_keywords, MIN(is_expired) FROM free_games GROUP BY title"
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Printf("[DB] query error: %v | query: %s", err, query)
@@ -820,7 +834,7 @@ func writeGamesJSON() error {
 		var g GameResponse
 		var isExpiredInt int
 
-		if err := rows.Scan(&g.ID, &g.Title, &g.Platform, &g.ImageURL, &g.OriginalPrice, &g.Description, &g.EndDate, &g.GameURL, &isExpiredInt); err != nil {
+		if err := rows.Scan(&g.ID, &g.Title, &g.Platform, &g.ImageURL, &g.OriginalPrice, &g.Description, &g.EndDate, &g.GameURL, &g.SeoKeywords, &isExpiredInt); err != nil {
 			log.Printf("[DB] scan error: %v", err)
 			continue
 		}
@@ -840,7 +854,7 @@ func writeGamesJSON() error {
 }
 
 func writeBooksJSON() error {
-	query := "SELECT id, title, author, image_url, description, book_url FROM free_books"
+	query := "SELECT id, title, author, image_url, description, book_url, seo_keywords FROM free_books"
 	rows, err := db.Query(query)
 	if err != nil {
 		log.Printf("[DB] query error: %v | query: %s", err, query)
@@ -851,7 +865,7 @@ func writeBooksJSON() error {
 	var books []BookResponse
 	for rows.Next() {
 		var b BookResponse
-		if err := rows.Scan(&b.ID, &b.Title, &b.Author, &b.ImageURL, &b.Description, &b.BookURL); err != nil {
+		if err := rows.Scan(&b.ID, &b.Title, &b.Author, &b.ImageURL, &b.Description, &b.BookURL, &b.SeoKeywords); err != nil {
 			log.Printf("[DB] scan error: %v", err)
 			continue
 		}
