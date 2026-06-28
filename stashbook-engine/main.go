@@ -839,6 +839,12 @@ func writeGamesJSON() error {
 			continue
 		}
 		g.IsExpired = isExpiredInt == 1
+		if strings.TrimSpace(g.SeoKeywords) == "" {
+			g.SeoKeywords = fmt.Sprintf("Free %s, %s free game, discount, PC deals", g.Title, g.Platform)
+		}
+		if g.Description == "" {
+			g.Description = fmt.Sprintf("Grab %s for free or at a huge discount on %s.", g.Title, g.Platform)
+		}
 		games = append(games, g)
 	}
 	if err := rows.Err(); err != nil {
@@ -868,6 +874,12 @@ func writeBooksJSON() error {
 		if err := rows.Scan(&b.ID, &b.Title, &b.Author, &b.ImageURL, &b.Description, &b.BookURL, &b.SeoKeywords); err != nil {
 			log.Printf("[DB] scan error: %v", err)
 			continue
+		}
+		if b.SeoKeywords == "" {
+			b.SeoKeywords = fmt.Sprintf("Free %s, %s free book, programming, tech books", b.Title, b.Author)
+		}
+		if b.Description == "" {
+			b.Description = fmt.Sprintf("Download the official digital edition of %s by %s.", b.Title, b.Author)
 		}
 		books = append(books, b)
 	}
