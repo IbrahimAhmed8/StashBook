@@ -10,7 +10,7 @@ The system consists of two distinct components:
 
 ## Technical Stack
 - Backend: Go, SQLite
-- Frontend: React, Vite, Tailwind CSS
+- Frontend: React, Vite, Tailwind CSS 
 
 ## Installation
 
