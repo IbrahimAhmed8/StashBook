@@ -1,9 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 export default function Contact() {
-  const handleSubmit = (e) => {
+  const [status, setStatus] = useState('');
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setStatus('submitting');
+
+    const formData = new FormData(e.target);
+    formData.append("access_key", "83a0dad1-bea4-44a4-955f-a76df20536de");
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus('success');
+        e.target.reset();
+        setTimeout(() => setStatus(''), 5000);
+      } else {
+        setStatus('error');
+      }
+    } catch (error) {
+      setStatus('error');
+    }
   };
 
   const inputClass =
@@ -32,6 +57,7 @@ export default function Contact() {
               type="text"
               id="name"
               name="name"
+              required
               className={inputClass}
               placeholder="Enter your callsign..."
               autoComplete="name"
@@ -46,6 +72,7 @@ export default function Contact() {
               type="email"
               id="email"
               name="email"
+              required
               className={inputClass}
               placeholder="your@email.com"
               autoComplete="email"
@@ -59,6 +86,7 @@ export default function Contact() {
             <textarea
               id="message"
               name="message"
+              required
               rows={6}
               className={`${inputClass} resize-y min-h-[120px]`}
               placeholder="Compose your transmission..."
@@ -67,10 +95,23 @@ export default function Contact() {
 
           <button
             type="submit"
-            className="mt-2 border-2 border-retro-orange text-retro-orange px-8 py-3 text-xs md:text-sm tracking-widest uppercase hover:bg-retro-orange hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)] self-center"
+            disabled={status === 'submitting'}
+            className="mt-2 border-2 border-retro-orange text-retro-orange px-8 py-3 text-xs md:text-sm tracking-widest uppercase hover:bg-retro-orange hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)] self-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            [ Submit ]
+            {status === 'submitting' ? '[ Sending... ]' : '[ Submit ]'}
           </button>
+
+          {status === 'success' && (
+            <p className="text-center text-green-500 drop-shadow-[0_0_5px_rgba(34,197,94,0.5)] text-xs md:text-sm tracking-widest uppercase">
+              Message Transmitted Successfully!
+            </p>
+          )}
+
+          {status === 'error' && (
+            <p className="text-center text-red-500 drop-shadow-[0_0_5px_rgba(239,68,68,0.5)] text-xs md:text-sm tracking-widest uppercase">
+              Transmission Failed. Please try again.
+            </p>
+          )}
         </form>
 
         <div className="relative z-10 border-t border-retro-gray/30 pt-8 text-center">
