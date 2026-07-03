@@ -29,7 +29,7 @@ jobs:
         run: go run main.go
 
       - name: Generate Sitemap
-        run: node public/generate-sitemap.js
+        run: node generate-sitemap.js
 
       - name: Commit and push updated assets
         run: |
