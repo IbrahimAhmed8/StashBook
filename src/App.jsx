@@ -4,6 +4,7 @@ import ErrorBoundary from './ErrorBoundary';
 
 const Home = lazy(() => import('./Home'));
 const About = lazy(() => import('./About'));
+const Contact = lazy(() => import('./components/Contact'));
 const IconicItems = lazy(() => import('./IconicItems'));
 const Books = lazy(() => import('./Books'));
 
@@ -42,6 +43,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/iconic" element={<IconicItems />} />
               <Route path="/books" element={<Books />} />
             </Routes>
@@ -51,7 +53,7 @@ export default function App() {
         <footer className="w-full border-t border-retro-gray/30 bg-black pt-4 md:pt-8 pb-4 md:pb-6 flex flex-col items-center gap-3 md:gap-6 mt-auto px-2">
           <div className="flex flex-wrap justify-center gap-3 md:gap-6 lg:gap-10 text-[8px] md:text-[10px] lg:text-xs tracking-widest uppercase text-retro-gray">
             <Link to="/about" className="hover:text-retro-orange transition-colors duration-300">About</Link>
-            <Link to="/" className="hover:text-retro-orange transition-colors duration-300">Contact Us</Link>
+            <Link to="/contact" className="hover:text-retro-orange transition-colors duration-300">Contact Us</Link>
           </div>
           <p className="text-[8px] md:text-[9px] tracking-wider text-retro-gray/40 uppercase">
             © {new Date().getFullYear()} StashBook
