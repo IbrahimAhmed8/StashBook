@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const gamesData = require('./src/data/games.json'); 
-const booksData = require('./src/data/books.json'); 
+const gamesData = require('./public/games.json'); 
+const booksData = require('./public/books.json'); 
 
 const DOMAIN = 'https://stashbook.online';
 
