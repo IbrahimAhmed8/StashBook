@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stashbook.pages.dev/sitemap.xml
+Sitemap: https://stashbook.online/sitemap.xml
