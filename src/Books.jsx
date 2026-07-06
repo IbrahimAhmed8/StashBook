@@ -37,9 +37,9 @@ export default function Books() {
         <title>Tech Archives – Free Developer Books | StashBook</title>
         <meta name="description" content="Discover free programming and developer books curated by StashBook. Download PDFs on software engineering, game dev, and tech topics at no cost." />
       </Helmet>
-      <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl text-retro-orange tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[3px_3px_0_rgba(255,107,0,0.5)] mb-8 md:mb-12 text-center break-words px-2">
+      <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl text-retro-orange tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[3px_3px_0_rgba(255,107,0,0.5)] mb-8 md:mb-12 text-center break-words px-2">
         [ Tech Archives ]
-      </h2>
+      </h1>
 
       {loading ? (
         <div className="text-center text-[10px] md:text-sm text-retro-gray uppercase animate-pulse">Decrypting Library...</div>
@@ -53,10 +53,11 @@ export default function Books() {
             <GameCard
               key={book.id}
               title={book.title}
-              platform={book.author} 
+              platform={book.author}
               image={book.image}
-              isExpired={false} 
-              price={0} 
+              isExpired={false}
+              price={0}
+              titleTag="h2"
               onClick={() => setSelectedBook(book)}
             />
           ))}
@@ -83,7 +84,7 @@ export default function Books() {
                 </div>
               </div>
               <div className="py-2">
-                <h4 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Synopsis</h4>
+                <h3 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Synopsis</h3>
                 <p className="text-[10px] md:text-xs lg:text-sm text-retro-white leading-relaxed max-h-48 overflow-y-auto pr-2 md:pr-3 custom-scrollbar break-words">
                   {selectedBook.description || "No metadata available."}
                 </p>

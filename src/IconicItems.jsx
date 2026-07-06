@@ -38,9 +38,9 @@ export default function IconicItems() {
         <title>Iconic Drops – Legendary Free Games | StashBook</title>
         <meta name="description" content="Track iconic and legendary free game drops on StashBook. Limited-time offers on acclaimed titles from Steam, Epic, and other platforms." />
       </Helmet>
-      <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl text-retro-orange tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[3px_3px_0_rgba(255,107,0,0.5)] mb-8 md:mb-12 text-center break-words px-2">
+      <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl text-retro-orange tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[3px_3px_0_rgba(255,107,0,0.5)] mb-8 md:mb-12 text-center break-words px-2">
         [ Iconic Drops ]
-      </h2>
+      </h1>
 
       {loading ? (
         <div className="text-center text-[10px] md:text-sm text-retro-gray uppercase animate-pulse">Scanning Vault...</div>
@@ -57,7 +57,8 @@ export default function IconicItems() {
               platform={game.platform}
               image={game.image}
               isExpired={game.is_expired}
-              price={game.original_price} 
+              price={game.original_price}
+              titleTag="h2"
               onClick={() => setSelectedGame(game)}
             />
           ))}
@@ -86,7 +87,7 @@ export default function IconicItems() {
                 </div>
               </div>
               <div className="py-2">
-                <h4 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h4>
+                <h3 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h3>
                 <p className="text-[10px] md:text-xs lg:text-sm text-retro-white leading-relaxed max-h-48 overflow-y-auto pr-2 md:pr-3 custom-scrollbar break-words">
                   {selectedGame.description || "No description available for this drop."}
                 </p>

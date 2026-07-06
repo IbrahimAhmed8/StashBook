@@ -1,0 +1,11 @@
+# StashBook
+
+StashBook is a retro-styled aggregator that tracks free game giveaways, developer books, and iconic digital loot from Steam, Epic Games, GOG, Prime Gaming, itch.io, and other storefronts.
+
+## Main Sections
+
+- [Free Game Deals](https://stashbook.online/) — Live and expired free game offers grouped by platform.
+- [Tech Archives](https://stashbook.online/books) — Curated free programming and developer books.
+- [Iconic Drops](https://stashbook.online/iconic) — Legendary and high-value free game promotions.
+- [About](https://stashbook.online/about) — How StashBook works and project disclaimer.
+- [Contact](https://stashbook.online/contact) — Send feedback or report broken links.

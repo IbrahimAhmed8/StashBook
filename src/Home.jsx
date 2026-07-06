@@ -71,9 +71,9 @@ export default function Home() {
     return Object.entries(groupedGames).map(([platformName, platformGames]) => (
       <div key={platformName} className="mb-10 md:mb-16 w-full flex flex-col items-center">
         <div className="text-center w-full flex justify-center items-center mb-6 md:mb-8 px-2 md:px-6">
-          <h3 className="text-[10px] sm:text-sm md:text-xl lg:text-2xl text-retro-white tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[2px_2px_0_rgba(255,107,0,0.5)] break-words line-clamp-2">
+          <h2 className="text-[10px] sm:text-sm md:text-xl lg:text-2xl text-retro-white tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[2px_2px_0_rgba(255,107,0,0.5)] break-words line-clamp-2">
             {platformName}
-          </h3>
+          </h2>
         </div>
         
         <div className="flex flex-wrap justify-center gap-4 w-full max-w-5xl mx-auto px-2 md:px-6">
@@ -158,7 +158,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="py-2">
-                <h4 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h4>
+                <h3 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h3>
                 <p className="text-[10px] md:text-xs lg:text-sm text-retro-white leading-relaxed max-h-48 overflow-y-auto pr-2 md:pr-3 custom-scrollbar break-words">{selectedGame.description || "No description available for this game."}</p>
               </div>
               <div className="flex flex-col gap-3 md:gap-4 mt-2 md:mt-4 pt-3 md:pt-4 border-t border-retro-gray/30">

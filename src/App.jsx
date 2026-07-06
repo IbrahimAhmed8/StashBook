@@ -38,17 +38,19 @@ export default function App() {
       <div className="min-h-screen flex flex-col items-center relative bg-black overflow-x-hidden w-full max-w-[100vw]">
         <Navigation />
 
-        <ErrorBoundary>
-          <Suspense fallback={<div className="text-retro-white text-center p-10 font-['Press_Start_2P'] text-xs md:text-sm drop-shadow-[2px_2px_0_var(--color-retro-orange)]">LOADING...</div>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/iconic" element={<IconicItems />} />
-              <Route path="/books" element={<Books />} />
-            </Routes>
-          </Suspense>
-        </ErrorBoundary>
+        <main className="w-full flex flex-col flex-grow">
+          <ErrorBoundary>
+            <Suspense fallback={<div className="text-retro-white text-center p-10 font-['Press_Start_2P'] text-xs md:text-sm drop-shadow-[2px_2px_0_var(--color-retro-orange)]">LOADING...</div>}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/iconic" element={<IconicItems />} />
+                <Route path="/books" element={<Books />} />
+              </Routes>
+            </Suspense>
+          </ErrorBoundary>
+        </main>
 
         <footer className="w-full border-t border-retro-gray/30 bg-black pt-4 md:pt-8 pb-4 md:pb-6 flex flex-col items-center gap-3 md:gap-6 mt-auto px-2">
           <div className="flex flex-wrap justify-center gap-3 md:gap-6 lg:gap-10 text-[8px] md:text-[10px] lg:text-xs tracking-widest uppercase text-retro-gray">

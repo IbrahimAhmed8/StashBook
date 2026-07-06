@@ -2,9 +2,9 @@
 
 @theme {
   --color-retro-bg: #050505;
-  --color-retro-orange: #ff8c00;
+  --color-retro-orange: #ffa033;
   --color-retro-white: #ededed;
-  --color-retro-gray: #737373;
+  --color-retro-gray: #949494;
   
   --font-pixel: "Press Start 2P", monospace;
 }
@@ -24,7 +24,7 @@
     width: 6px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: rgba(115, 115, 115, 0.1); 
+    background: rgba(148, 148, 148, 0.1); 
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: var(--color-retro-orange);

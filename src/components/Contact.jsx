@@ -41,9 +41,9 @@ export default function Contact() {
         <meta name="description" content="Send feedback, report a broken link, or get in touch with the StashBook team." />
       </Helmet>
 
-      <h2 className="text-2xl md:text-4xl lg:text-5xl text-retro-white tracking-[0.1em] md:tracking-[0.2em] uppercase drop-shadow-[3px_3px_0_var(--color-retro-orange)] mb-10 text-center whitespace-nowrap">
+      <h1 className="text-2xl md:text-4xl lg:text-5xl text-retro-white tracking-[0.1em] md:tracking-[0.2em] uppercase drop-shadow-[3px_3px_0_var(--color-retro-orange)] mb-10 text-center whitespace-nowrap">
         Contact Us
-      </h2>
+      </h1>
 
       <div className="w-full border-2 border-retro-gray p-6 md:p-10 bg-black shadow-[8px_8px_0_0_rgba(156,163,175,0.1)] flex flex-col gap-8 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
