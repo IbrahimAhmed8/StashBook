@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
+import { filterActiveFreeGames, filterExpiredGames, filterMainFeedGames } from './utils/gameFilters';
 
 const DEFAULT_DESCRIPTION = 'StashBook is your daily loot drop for free game deals, developer books, and curated tech gear—save money and level up your setup without the grind.';
 const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, free steam games, epic games free';
@@ -42,8 +43,7 @@ export default function Home() {
         return res.json();
       })
       .then((data) => {
-        const freeOnly = (data || []).filter(game => !game.id.startsWith('legendary'));
-        setGames(freeOnly);
+        setGames(filterMainFeedGames(data));
         setLoading(false);
       })
       .catch((err) => {
@@ -53,8 +53,8 @@ export default function Home() {
       });
   }, []);
 
-  const activeGames = games.filter(game => !game.is_expired);
-  const expiredGames = games.filter(game => game.is_expired); 
+  const activeGames = filterActiveFreeGames(games);
+  const expiredGames = filterExpiredGames(games);
   const closeModal = () => setSelectedGame(null);
 
   const renderGroupedSections = (gamesList, isExpiredView) => {

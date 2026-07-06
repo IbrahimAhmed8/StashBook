@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"html"
 	"io"
 	"log"
 	"net/http"
@@ -845,6 +846,7 @@ func writeGamesJSON() error {
 		if g.Description == "" {
 			g.Description = fmt.Sprintf("Grab %s for free or at a huge discount on %s.", g.Title, g.Platform)
 		}
+		sanitizeGameResponse(&g)
 		games = append(games, g)
 	}
 	if err := rows.Err(); err != nil {
@@ -881,6 +883,7 @@ func writeBooksJSON() error {
 		if b.Description == "" {
 			b.Description = fmt.Sprintf("Download the official digital edition of %s by %s.", b.Title, b.Author)
 		}
+		sanitizeBookResponse(&b)
 		books = append(books, b)
 	}
 	if err := rows.Err(); err != nil {
@@ -893,4 +896,27 @@ func writeBooksJSON() error {
 	}
 
 	return writeJSONFile(publicAssetPath("books.json"), books)
+}
+
+func sanitizeText(value string) string {
+	return strings.TrimSpace(html.UnescapeString(value))
+}
+
+func sanitizeGameResponse(game *GameResponse) {
+	game.Title = sanitizeText(game.Title)
+	game.Platform = sanitizeText(game.Platform)
+	game.ImageURL = sanitizeText(game.ImageURL)
+	game.Description = sanitizeText(game.Description)
+	game.EndDate = sanitizeText(game.EndDate)
+	game.GameURL = sanitizeText(game.GameURL)
+	game.SeoKeywords = sanitizeText(game.SeoKeywords)
+}
+
+func sanitizeBookResponse(book *BookResponse) {
+	book.Title = sanitizeText(book.Title)
+	book.Author = sanitizeText(book.Author)
+	book.ImageURL = sanitizeText(book.ImageURL)
+	book.Description = sanitizeText(book.Description)
+	book.BookURL = sanitizeText(book.BookURL)
+	book.SeoKeywords = sanitizeText(book.SeoKeywords)
 }

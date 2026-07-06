@@ -7,6 +7,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  test: {
+    environment: 'node',
+  },
   build: {
     rollupOptions: {
       output: {

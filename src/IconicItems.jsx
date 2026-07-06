@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
+import { filterIconicDeals } from './utils/gameFilters';
 
 const DEFAULT_DESCRIPTION = 'StashBook is your daily loot drop for free game deals, developer books, and curated tech gear—save money and level up your setup without the grind.';
 const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, iconic drops, steam sales';
@@ -19,8 +20,7 @@ export default function IconicItems() {
         return res.json();
       })
       .then((data) => {
-        const iconic = (data || []).filter(game => game.id.startsWith('legendary'));
-        setGames(iconic);
+        setGames(filterIconicDeals(data));
         setLoading(false);
       })
       .catch((err) => {
