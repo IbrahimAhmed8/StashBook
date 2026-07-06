@@ -101,6 +101,10 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden">
+      <Helmet>
+        <title>StashBook – Free Game Deals &amp; Giveaways</title>
+        <meta name="description" content="Browse live free game offers from Steam, Epic Games, GOG, Prime Gaming, and itch.io. StashBook scans storefronts daily so you never miss a giveaway." />
+      </Helmet>
       <section className="w-full min-h-[40vh] md:min-h-[60vh] flex flex-col items-center justify-center text-center px-2 md:px-6 border-b border-retro-gray/20 mb-8 md:mb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
         <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.2em] uppercase text-retro-white drop-shadow-[2px_2px_0_var(--color-retro-orange)] md:drop-shadow-[4px_4px_0_var(--color-retro-orange)] z-10 mb-4 md:mb-6 break-words max-w-full px-2">

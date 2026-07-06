@@ -1,9 +1,14 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 
 export default function About() {
   return (
     <div className="w-full max-w-4xl mx-auto px-6 py-16 flex-grow flex flex-col items-center">
+      <Helmet>
+        <title>About StashBook – How We Hunt Free Loot</title>
+        <meta name="description" content="Learn how StashBook automates free game and digital asset discovery. Independent tool, not affiliated with Steam, Epic, or other storefronts." />
+      </Helmet>
       
       <h2 className="text-2xl md:text-4xl lg:text-5xl text-retro-white tracking-[0.1em] md:tracking-[0.2em] uppercase drop-shadow-[3px_3px_0_var(--color-retro-orange)] mb-10 text-center whitespace-nowrap">
         ABOUT

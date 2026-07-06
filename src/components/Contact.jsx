@@ -38,7 +38,7 @@ export default function Contact() {
     <div className="w-full max-w-4xl mx-auto px-6 py-16 flex-grow flex flex-col items-center">
       <Helmet>
         <title>Contact Us - StashBook</title>
-        <meta name="description" content="Get in touch with StashBook for inquiries, feedback, or support." />
+        <meta name="description" content="Send feedback, report a broken link, or get in touch with the StashBook team." />
       </Helmet>
 
       <h2 className="text-2xl md:text-4xl lg:text-5xl text-retro-white tracking-[0.1em] md:tracking-[0.2em] uppercase drop-shadow-[3px_3px_0_var(--color-retro-orange)] mb-10 text-center whitespace-nowrap">

@@ -33,6 +33,10 @@ export default function Books() {
 
   return (
     <div className="w-full flex-grow flex flex-col items-center pt-6 md:pt-10 pb-10 md:pb-16 px-2 md:px-6 overflow-x-hidden">
+      <Helmet>
+        <title>Tech Archives – Free Developer Books | StashBook</title>
+        <meta name="description" content="Discover free programming and developer books curated by StashBook. Download PDFs on software engineering, game dev, and tech topics at no cost." />
+      </Helmet>
       <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl text-retro-orange tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[3px_3px_0_rgba(255,107,0,0.5)] mb-8 md:mb-12 text-center break-words px-2">
         [ Tech Archives ]
       </h2>

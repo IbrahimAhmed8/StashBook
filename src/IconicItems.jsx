@@ -34,6 +34,10 @@ export default function IconicItems() {
 
   return (
     <div className="w-full flex-grow flex flex-col items-center pt-6 md:pt-10 pb-10 md:pb-16 px-2 md:px-6 overflow-x-hidden">
+      <Helmet>
+        <title>Iconic Drops – Legendary Free Games | StashBook</title>
+        <meta name="description" content="Track iconic and legendary free game drops on StashBook. Limited-time offers on acclaimed titles from Steam, Epic, and other platforms." />
+      </Helmet>
       <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-5xl text-retro-orange tracking-[0.1em] md:tracking-[0.3em] uppercase drop-shadow-[3px_3px_0_rgba(255,107,0,0.5)] mb-8 md:mb-12 text-center break-words px-2">
         [ Iconic Drops ]
       </h2>
