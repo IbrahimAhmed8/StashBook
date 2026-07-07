@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
 import { filterActiveFreeGames, filterExpiredGames, filterMainFeedGames } from './utils/gameFilters';
-
-const DEFAULT_DESCRIPTION = 'StashBook is your daily loot drop for free game deals, developer books, and curated tech gear—save money and level up your setup without the grind.';
-const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, free steam games, epic games free';
+import { slugify } from './utils/stringUtils';
 
 const groupGamesByPlatform = (gamesList) => {
   const grouped = {};
@@ -30,11 +29,11 @@ const groupGamesByPlatform = (gamesList) => {
 };
 
 export default function Home() {
+  const navigate = useNavigate();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(false);
-  const [view, setView] = useState('active'); 
-  const [selectedGame, setSelectedGame] = useState(null);
+  const [view, setView] = useState('active');
 
   useEffect(() => {
     fetch('/games.json')
@@ -55,7 +54,6 @@ export default function Home() {
 
   const activeGames = filterActiveFreeGames(games);
   const expiredGames = filterExpiredGames(games);
-  const closeModal = () => setSelectedGame(null);
 
   const renderGroupedSections = (gamesList, isExpiredView) => {
     if (gamesList.length === 0) {
@@ -84,7 +82,7 @@ export default function Home() {
               platform={platformName} 
               image={game.image}
               isExpired={isExpiredView}
-              onClick={() => setSelectedGame(game)} 
+              onClick={() => navigate(`/game/${slugify(game.title)}`)}
             />
           ))}
         </div>
@@ -137,45 +135,6 @@ export default function Home() {
           )}
         </section>
       </div>
-
-      {selectedGame && (
-        <>
-        <Helmet>
-          <title>{selectedGame.title} - Stashbook Free Deals</title>
-          <meta name="description" content={selectedGame.description?.trim() || DEFAULT_DESCRIPTION} />
-          <meta name="keywords" content={selectedGame.seo_keywords?.trim() || DEFAULT_KEYWORDS} />
-        </Helmet>
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-4 bg-black/80 backdrop-blur-sm overflow-x-hidden">
-          <div className="absolute inset-0 cursor-pointer" onClick={closeModal}></div>
-          <div className="relative bg-black border-2 border-retro-orange p-4 md:p-8 w-full max-w-xl shadow-[8px_8px_0_0_var(--color-retro-orange)] animate-[fadeIn_0.2s_ease-out] overflow-hidden">
-            <button onClick={closeModal} className="absolute top-2 right-3 md:top-3 md:right-4 text-retro-gray hover:text-retro-orange text-sm md:text-xl font-bold transition-colors z-10">[X]</button>
-            <div className="flex flex-col gap-3 md:gap-5 mt-4">
-              <div className="flex flex-col gap-2">
-                <h2 className="text-sm md:text-2xl lg:text-3xl text-retro-white uppercase tracking-wider leading-tight break-words line-clamp-3 pr-6">{selectedGame.title}</h2>
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-2 border-b border-retro-gray/30 pb-3">
-                  <span className="text-[10px] md:text-sm text-retro-gray uppercase tracking-wider truncate">{selectedGame.platform}</span>
-                  <span className="text-[10px] md:text-sm text-retro-orange animate-pulse font-bold tracking-widest shrink-0">{selectedGame.is_expired ? 'OFFER EXPIRED' : 'FREE (100% OFF)'}</span>
-                </div>
-              </div>
-              <div className="py-2">
-                <h3 className="text-[8px] md:text-[10px] text-retro-gray uppercase tracking-[0.2em] mb-2">Description</h3>
-                <p className="text-[10px] md:text-xs lg:text-sm text-retro-white leading-relaxed max-h-48 overflow-y-auto pr-2 md:pr-3 custom-scrollbar break-words">{selectedGame.description || "No description available for this game."}</p>
-              </div>
-              <div className="flex flex-col gap-3 md:gap-4 mt-2 md:mt-4 pt-3 md:pt-4 border-t border-retro-gray/30">
-                {!selectedGame.is_expired && (
-                  <div className="text-[10px] md:text-xs text-retro-white uppercase tracking-wider text-center break-words">
-                    Valid Until: <span className="text-retro-orange font-bold">{selectedGame.end_date || "Limited Time"}</span>
-                  </div>
-                )}
-                <a href={selectedGame.game_url || "#"} target="_blank" rel="noopener noreferrer" className={`block text-center py-2 md:py-3 border-2 uppercase text-[10px] md:text-xs lg:text-sm tracking-[0.2em] md:tracking-[0.3em] font-bold transition-all duration-300 ${selectedGame.is_expired ? 'border-retro-gray/50 text-retro-gray/50 cursor-not-allowed pointer-events-none' : 'border-retro-orange text-retro-orange hover:bg-retro-orange hover:text-black hover:shadow-[0_0_15px_var(--color-retro-orange)]'}`}>
-                  {selectedGame.is_expired ? 'Offer Ended' : 'Get It Now'}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        </>
-      )}
     </div>
   );
 }

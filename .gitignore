@@ -11,3 +11,4 @@ build/
 
 # Allow GitHub Actions to commit the DB
 !stashbook-engine/stashbook.dbstashbook-engine/main
+stashbook-engine/main

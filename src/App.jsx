@@ -7,6 +7,7 @@ const About = lazy(() => import('./About'));
 const Contact = lazy(() => import('./components/Contact'));
 const IconicItems = lazy(() => import('./IconicItems'));
 const Books = lazy(() => import('./Books'));
+const GameDetails = lazy(() => import('./GameDetails'));
 
 function Navigation() {
   const location = useLocation();
@@ -47,6 +48,7 @@ export default function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/iconic" element={<IconicItems />} />
                 <Route path="/books" element={<Books />} />
+                <Route path="/game/:slug" element={<GameDetails />} />
               </Routes>
             </Suspense>
           </ErrorBoundary>

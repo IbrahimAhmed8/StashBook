@@ -173,8 +173,12 @@ func main() {
 	if err := writeBooksJSON(); err != nil {
 		log.Fatalf("failed to write books.json: %v", err)
 	}
+	if err := writeSitemapXML(); err != nil {
+		log.Fatalf("failed to write sitemap.xml: %v", err)
+	}
 
 	fmt.Println("✅ Wrote public/games.json and public/books.json")
+	fmt.Println("✅ Wrote public/sitemap.xml")
 	os.Exit(0)
 }
 
@@ -919,4 +923,73 @@ func sanitizeBookResponse(book *BookResponse) {
 	book.Description = sanitizeText(book.Description)
 	book.BookURL = sanitizeText(book.BookURL)
 	book.SeoKeywords = sanitizeText(book.SeoKeywords)
+}
+
+func writeSitemapXML() error {
+	path := publicAssetPath("sitemap.xml")
+	if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+		return fmt.Errorf("create directory: %w", err)
+	}
+
+	file, err := os.Create(path)
+	if err != nil {
+		return fmt.Errorf("create sitemap: %w", err)
+	}
+	defer file.Close()
+
+	fmt.Fprintln(file, `<?xml version="1.0" encoding="UTF-8"?>`)
+	fmt.Fprintln(file, `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`)
+
+	staticRoutes := []struct {
+		loc        string
+		changefreq string
+	}{
+		{"https://stashbook.online/", "daily"},
+		{"https://stashbook.online/books", "weekly"},
+		{"https://stashbook.online/iconic", "weekly"},
+		{"https://stashbook.online/about", "weekly"},
+		{"https://stashbook.online/contact", "weekly"},
+	}
+
+	for _, route := range staticRoutes {
+		fmt.Fprintf(file, "  <url>\n    <loc>%s</loc>\n    <changefreq>%s</changefreq>\n  </url>\n", route.loc, route.changefreq)
+	}
+
+	rows, err := db.Query("SELECT title FROM free_games GROUP BY title")
+	if err != nil {
+		return fmt.Errorf("query games: %w", err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var title string
+		if err := rows.Scan(&title); err != nil {
+			log.Printf("[DB] scan error: %v", err)
+			continue
+		}
+		slug := slugify(title)
+		if slug != "" {
+			fmt.Fprintf(file, "  <url><loc>https://stashbook.online/game/%s</loc><changefreq>weekly</changefreq></url>\n", slug)
+		}
+	}
+	if err := rows.Err(); err != nil {
+		return fmt.Errorf("rows error: %w", err)
+	}
+
+	fmt.Fprintln(file, "</urlset>")
+	return nil
+}
+
+var (
+	slugNonAlphaNum = regexp.MustCompile(`[^a-z0-9\s-]`)
+	slugSpaces      = regexp.MustCompile(`[\s_]+`)
+	slugHyphens     = regexp.MustCompile(`-+`)
+)
+
+func slugify(text string) string {
+	text = strings.ToLower(strings.TrimSpace(text))
+	text = slugNonAlphaNum.ReplaceAllString(text, "")
+	text = slugSpaces.ReplaceAllString(text, "-")
+	text = slugHyphens.ReplaceAllString(text, "-")
+	return strings.Trim(text, "-")
 }
