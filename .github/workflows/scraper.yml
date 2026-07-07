@@ -32,5 +32,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/games.json public/books.json stashbook-engine/stashbook.db
-          git diff --staged --quiet || (git commit -m "chore: auto-update assets" && git pull --rebase origin main && git push)
+          git add public/games.json public/books.json public/sitemap.xml stashbook-engine/stashbook.db
+          git diff --staged --quiet || (git commit -m "chore: auto-update assets" && git pull --rebase --autostash origin main && git push)
