@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
-export default function GameCard({ title, platform, image, isExpired, price, onClick, titleTag: TitleTag = 'h3' }) {
+export default function GameCard({ title, platform, image, isExpired, price, description, onClick, titleTag: TitleTag = 'h3' }) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const words = title.split(' ');
   const shortTitle = words.slice(0, 3).join(' ') + (words.length > 3 ? '...' : '');
+
+  const isIconic = platform?.toLowerCase().includes('iconic');
+  const discountMatch = description?.match(/\[\s*(\d+%\s*OFF)\s*\]/i);
+  const extractedDiscount = discountMatch ? discountMatch[1] : "DISCOUNT";
 
   let badgeText = "FREE";
   let badgeClass = "text-retro-orange animate-pulse";
@@ -12,8 +16,11 @@ export default function GameCard({ title, platform, image, isExpired, price, onC
   if (isExpired) {
     badgeText = "EXPIRED";
     badgeClass = "text-retro-gray/50";
+  } else if (isIconic) {
+    badgeText = extractedDiscount;
+    badgeClass = "text-retro-orange animate-pulse font-bold tracking-widest";
   } else if (price > 0) {
-    badgeText = `$${price}`;
+    badgeText = `VALUE: $${price}`;
     badgeClass = "text-retro-white drop-shadow-[0_0_5px_rgba(255,255,255,0.8)] font-bold";
   }
 

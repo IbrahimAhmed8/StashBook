@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { slugify } from './utils/stringUtils';
 
@@ -8,6 +8,7 @@ const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, free steam games, e
 
 export default function GameDetails() {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -76,6 +77,11 @@ export default function GameDetails() {
   const description = game.description?.trim() || DEFAULT_DESCRIPTION;
   const keywords = game.seo_keywords?.trim() || DEFAULT_KEYWORDS;
   const canonicalUrl = `https://stashbook.online/game/${slug}`;
+  const isIconic = game.platform?.toLowerCase().includes('iconic');
+  const discountMatch = game.description?.match(/\[\s*(\d+%\s*OFF)\s*\]/i);
+  const badgeText = game.is_expired
+    ? 'OFFER EXPIRED'
+    : (isIconic ? (discountMatch ? discountMatch[1] : 'ICONIC DISCOUNT') : 'FREE (100% OFF)');
 
   return (
     <main className="w-full flex-grow flex flex-col items-center justify-center py-8 md:py-16 px-2 md:px-6 overflow-x-hidden">
@@ -87,12 +93,18 @@ export default function GameDetails() {
       </Helmet>
 
       <div className="relative bg-black border-2 border-retro-orange p-4 md:p-8 w-full max-w-xl shadow-[8px_8px_0_0_var(--color-retro-orange)] animate-[fadeIn_0.2s_ease-out] overflow-hidden">
-        <Link
-          to="/"
+        <button
+          onClick={() => {
+            if (window.history.length > 2) {
+              navigate(-1);
+            } else {
+              navigate('/');
+            }
+          }}
           className="absolute top-2 right-3 md:top-3 md:right-4 text-retro-gray hover:text-retro-orange text-sm md:text-xl font-bold transition-colors z-10"
         >
           [X]
-        </Link>
+        </button>
         <div className="flex flex-col gap-3 md:gap-5 mt-4">
           <div className="flex flex-col gap-2">
             <h1 className="text-sm md:text-2xl lg:text-3xl text-retro-white uppercase tracking-wider leading-tight break-words line-clamp-3 pr-6">
@@ -102,8 +114,12 @@ export default function GameDetails() {
               <span className="text-[10px] md:text-sm text-retro-gray uppercase tracking-wider truncate">
                 {game.platform}
               </span>
-              <span className="text-[10px] md:text-sm text-retro-orange animate-pulse font-bold tracking-widest shrink-0">
-                {game.is_expired ? 'OFFER EXPIRED' : 'FREE (100% OFF)'}
+              <span className={`text-[10px] md:text-sm font-bold tracking-widest shrink-0 ${
+                game.is_expired
+                  ? 'text-retro-gray/50'
+                  : 'text-retro-orange animate-pulse'
+              }`}>
+                {badgeText}
               </span>
             </div>
           </div>

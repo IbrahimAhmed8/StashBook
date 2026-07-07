@@ -6,6 +6,8 @@ import ServiceUnavailable from './ServiceUnavailable';
 import { filterIconicDeals } from './utils/gameFilters';
 import { slugify } from './utils/stringUtils';
 
+let cachedIconicGames = null;
+
 export default function IconicItems() {
   const navigate = useNavigate();
   const [games, setGames] = useState([]);
@@ -13,19 +15,28 @@ export default function IconicItems() {
   const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
+    if (cachedIconicGames) {
+      setGames(cachedIconicGames);
+      setLoading(false);
+    }
+
     fetch('/games.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
       .then((data) => {
-        setGames(filterIconicDeals(data));
+        const filtered = filterIconicDeals(data);
+        cachedIconicGames = filtered;
+        setGames(filtered);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching data:", err);
-        setFetchError(true);
-        setLoading(false);
+        if (!cachedIconicGames) {
+          setFetchError(true);
+          setLoading(false);
+        }
       });
   }, []);
 
@@ -55,6 +66,7 @@ export default function IconicItems() {
               image={game.image}
               isExpired={game.is_expired}
               price={game.original_price}
+              description={game.description}
               titleTag="h2"
               onClick={() => navigate(`/game/${slugify(game.title)}`)}
             />

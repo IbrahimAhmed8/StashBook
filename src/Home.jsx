@@ -6,6 +6,8 @@ import ServiceUnavailable from './ServiceUnavailable';
 import { filterActiveFreeGames, filterExpiredGames, filterMainFeedGames } from './utils/gameFilters';
 import { slugify } from './utils/stringUtils';
 
+let cachedHomeGames = null;
+
 const groupGamesByPlatform = (gamesList) => {
   const grouped = {};
   gamesList.forEach(game => {
@@ -36,19 +38,28 @@ export default function Home() {
   const [view, setView] = useState('active');
 
   useEffect(() => {
+    if (cachedHomeGames) {
+      setGames(cachedHomeGames);
+      setLoading(false);
+    }
+
     fetch('/games.json')
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();
       })
       .then((data) => {
-        setGames(filterMainFeedGames(data));
+        const filtered = filterMainFeedGames(data);
+        cachedHomeGames = filtered;
+        setGames(filtered);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching games:", err);
-        setFetchError(true);
-        setLoading(false);
+        if (!cachedHomeGames) {
+          setFetchError(true);
+          setLoading(false);
+        }
       });
   }, []);
 
@@ -82,6 +93,7 @@ export default function Home() {
               platform={platformName} 
               image={game.image}
               isExpired={isExpiredView}
+              description={game.description}
               onClick={() => navigate(`/game/${slugify(game.title)}`)}
             />
           ))}
@@ -109,7 +121,7 @@ export default function Home() {
           StashBook
         </h1>
         <button onClick={scrollToLoot} className="z-10 border-2 border-retro-orange text-retro-orange px-4 md:px-8 py-2 md:py-3 text-[10px] md:text-xs lg:text-sm tracking-widest uppercase hover:bg-retro-orange hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(255,107,0,0.2)] hover:shadow-[0_0_25px_rgba(255,107,0,0.6)]">
-          [ Access Loot ]
+           Browse Offers 
         </button>
       </section>
 
@@ -119,7 +131,7 @@ export default function Home() {
             Active Offers
           </button>
           <button onClick={() => setView('expired')} className={`text-[10px] md:text-sm tracking-widest uppercase transition-colors duration-300 ${view === 'expired' ? 'text-retro-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : 'text-retro-gray hover:text-retro-white'}`}>
-            Expired Vault
+            Expired
           </button>
         </div>
 
