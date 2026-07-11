@@ -14,6 +14,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -136,34 +137,37 @@ func safeIterate(name string, fn func()) {
 
 func main() {
 	initDB()
+	defer db.Close()
 
 	execDB("UPDATE free_games SET is_expired = 1")
 
 	fmt.Println("🚀 Starting Aggregation Engines...")
 
-	fmt.Println("--> Engine 1: Epic Games")
-	safeRunEngine("Epic Games", fetchAndStoreEpicGames)
+	engines := []struct {
+		label string
+		name  string
+		fn    func()
+	}{
+		{"Engine 1: Epic Games", "Epic Games", fetchAndStoreEpicGames},
+		{"Engine 2: Steam Live Deals", "Steam Live Deals", fetchAndStoreSteamGames},
+		{"Engine 3: CheapShark Aggregator", "CheapShark Aggregator", fetchCheapSharkDeals},
+		{"Engine 4: StashBook Self-Tracker", "StashBook Self-Tracker", selfTrackSteamHistory},
+		{"Engine 5: Amazon Prime Gaming (GamerPower API)", "Amazon Prime Gaming", fetchGamerPowerPrimeGames},
+		{"Engine 6: Global Indie & Consoles", "Global Indie & Consoles", fetchGamerPowerGlobalGames},
+		{"Engine 7: Iconic Deals Hunter", "Iconic Deals Hunter", fetchOfficialLegendaryDeals},
+		{"Engine 8: Tech Vault (Digital Books Tracker)", "Tech Vault", fetchFreeTechBooks},
+	}
 
-	fmt.Println("--> Engine 2: Steam Live Deals")
-	safeRunEngine("Steam Live Deals", fetchAndStoreSteamGames)
-
-	fmt.Println("--> Engine 3: CheapShark Aggregator")
-	safeRunEngine("CheapShark Aggregator", fetchCheapSharkDeals)
-
-	fmt.Println("--> Engine 4: StashBook Self-Tracker")
-	safeRunEngine("StashBook Self-Tracker", selfTrackSteamHistory)
-
-	fmt.Println("--> Engine 5: Amazon Prime Gaming (GamerPower API)")
-	safeRunEngine("Amazon Prime Gaming", fetchGamerPowerPrimeGames)
-
-	fmt.Println("--> Engine 6: Global Indie & Consoles")
-	safeRunEngine("Global Indie & Consoles", fetchGamerPowerGlobalGames)
-
-	fmt.Println("--> Engine 7: Iconic Deals Hunter")
-	safeRunEngine("Iconic Deals Hunter", fetchOfficialLegendaryDeals)
-
-	fmt.Println("--> Engine 8: Tech Vault (Digital Books Tracker)")
-	safeRunEngine("Tech Vault", fetchFreeTechBooks)
+	var wg sync.WaitGroup
+	for _, engine := range engines {
+		wg.Add(1)
+		go func(label, name string, fn func()) {
+			defer wg.Done()
+			fmt.Println("-->", label)
+			safeRunEngine(name, fn)
+		}(engine.label, engine.name, engine.fn)
+	}
+	wg.Wait()
 
 	fmt.Println("✅ All Engines executed successfully. Writing static assets...")
 

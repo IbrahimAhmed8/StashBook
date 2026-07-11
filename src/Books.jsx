@@ -1,33 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
+import { useStashData } from './hooks/useStashData';
 
 const DEFAULT_DESCRIPTION = 'StashBook is your daily loot drop for free game deals, developer books, and curated tech gear—save money and level up your setup without the grind.';
 const DEFAULT_KEYWORDS = 'free books, developer books, tech books, stashbook, free pdf';
 
 export default function Books() {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState(false);
+  const { data, loading, error: fetchError } = useStashData('/books.json');
+  const books = data || [];
   const [selectedBook, setSelectedBook] = useState(null);
-
-  useEffect(() => {
-    fetch('/books.json')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        setBooks(data || []);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching books:", err);
-        setFetchError(true);
-        setLoading(false);
-      });
-  }, []);
 
   const closeModal = () => setSelectedBook(null);
 

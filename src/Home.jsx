@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
 import { filterActiveFreeGames, filterExpiredGames, filterMainFeedGames } from './utils/gameFilters';
 import { slugify } from './utils/stringUtils';
-
-let cachedHomeGames = null;
+import { useStashData } from './hooks/useStashData';
 
 const groupGamesByPlatform = (gamesList) => {
   const grouped = {};
@@ -32,36 +31,9 @@ const groupGamesByPlatform = (gamesList) => {
 
 export default function Home() {
   const navigate = useNavigate();
-  const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState(false);
+  const { data, loading, error: fetchError } = useStashData('/games.json');
+  const games = useMemo(() => (data ? filterMainFeedGames(data) : []), [data]);
   const [view, setView] = useState('active');
-
-  useEffect(() => {
-    if (cachedHomeGames) {
-      setGames(cachedHomeGames);
-      setLoading(false);
-    }
-
-    fetch('/games.json')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        const filtered = filterMainFeedGames(data);
-        cachedHomeGames = filtered;
-        setGames(filtered);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching games:", err);
-        if (!cachedHomeGames) {
-          setFetchError(true);
-          setLoading(false);
-        }
-      });
-  }, []);
 
   const activeGames = filterActiveFreeGames(games);
   const expiredGames = filterExpiredGames(games);

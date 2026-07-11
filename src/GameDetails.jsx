@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { slugify } from './utils/stringUtils';
+import { useStashData } from './hooks/useStashData';
 
 const DEFAULT_DESCRIPTION = 'StashBook is your daily loot drop for free game deals, developer books, and curated tech gear—save money and level up your setup without the grind.';
 const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, free steam games, epic games free';
@@ -9,35 +10,9 @@ const DEFAULT_KEYWORDS = 'free games, game deals, stashbook, free steam games, e
 export default function GameDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const [game, setGame] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setNotFound(false);
-    setGame(null);
-
-    fetch('/games.json')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        const match = data.find((g) => slugify(g.title) === slug);
-        if (match) {
-          setGame(match);
-        } else {
-          setNotFound(true);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Error fetching game:', err);
-        setNotFound(true);
-        setLoading(false);
-      });
-  }, [slug]);
+  const { data, loading, error } = useStashData('/games.json');
+  const game = data?.find((g) => slugify(g.title) === slug) ?? null;
+  const notFound = !loading && (error || !game);
 
   if (loading) {
     return (

@@ -1,44 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
 import ServiceUnavailable from './ServiceUnavailable';
 import { filterIconicDeals } from './utils/gameFilters';
 import { slugify } from './utils/stringUtils';
-
-let cachedIconicGames = null;
+import { useStashData } from './hooks/useStashData';
 
 export default function IconicItems() {
   const navigate = useNavigate();
-  const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState(false);
-
-  useEffect(() => {
-    if (cachedIconicGames) {
-      setGames(cachedIconicGames);
-      setLoading(false);
-    }
-
-    fetch('/games.json')
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        const filtered = filterIconicDeals(data);
-        cachedIconicGames = filtered;
-        setGames(filtered);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-        if (!cachedIconicGames) {
-          setFetchError(true);
-          setLoading(false);
-        }
-      });
-  }, []);
+  const { data, loading, error: fetchError } = useStashData('/games.json');
+  const games = useMemo(() => (data ? filterIconicDeals(data) : []), [data]);
 
   return (
     <div className="w-full flex-grow flex flex-col items-center pt-6 md:pt-10 pb-10 md:pb-16 px-2 md:px-6 overflow-x-hidden">
