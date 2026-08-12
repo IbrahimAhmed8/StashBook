@@ -52,19 +52,76 @@ export default function GameDetails() {
   const description = game.description?.trim() || DEFAULT_DESCRIPTION;
   const keywords = game.seo_keywords?.trim() || DEFAULT_KEYWORDS;
   const canonicalUrl = `https://stashbook.online/game/${slug}`;
+  const ogImage = game.image || 'https://stashbook.online/favicon.png';
+  const pageTitle = `${game.title} - Free Download & Details | StashBook`;
   const isIconic = game.platform?.toLowerCase().includes('iconic');
   const discountMatch = game.description?.match(/\[\s*(\d+%\s*OFF)\s*\]/i);
   const badgeText = game.is_expired
     ? 'OFFER EXPIRED'
     : (isIconic ? (discountMatch ? discountMatch[1] : 'ICONIC DISCOUNT') : 'FREE (100% OFF)');
 
+  const offer = {
+    '@type': 'Offer',
+    url: game.game_url || canonicalUrl,
+    priceCurrency: 'USD',
+    availability: game.is_expired
+      ? 'https://schema.org/OutOfStock'
+      : 'https://schema.org/InStock',
+    seller: {
+      '@type': 'Organization',
+      name: game.platform || 'Unknown',
+    },
+  };
+  if (!game.is_expired) {
+    offer.price = 0;
+    if (
+      game.end_date &&
+      game.end_date !== 'Unknown' &&
+      game.end_date !== 'Limited Time'
+    ) {
+      offer.priceValidUntil = game.end_date;
+    }
+  }
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${canonicalUrl}#webpage`,
+        url: canonicalUrl,
+        name: pageTitle,
+        description,
+        isPartOf: { '@id': 'https://stashbook.online/#website' },
+      },
+      {
+        '@type': 'Product',
+        name: game.title,
+        description,
+        image: game.image || undefined,
+        category: game.platform || undefined,
+        offers: offer,
+      },
+    ],
+  };
+
   return (
     <main className="w-full flex-grow flex flex-col items-center justify-center py-8 md:py-16 px-2 md:px-6 overflow-x-hidden">
       <Helmet>
-        <title>{game.title} - Free Download &amp; Details | StashBook</title>
+        <title>{pageTitle}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keywords} />
         <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:title" content={`${game.title} | StashBook`} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${game.title} | StashBook`} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
       <div className="relative bg-black border-2 border-retro-orange p-4 md:p-8 w-full max-w-xl shadow-[8px_8px_0_0_var(--color-retro-orange)] animate-[fadeIn_0.2s_ease-out] overflow-hidden">
