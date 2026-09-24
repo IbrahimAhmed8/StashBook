@@ -11,11 +11,3 @@ The system consists of two distinct components:
 ## Technical Stack
 - Backend: Go, SQLite
 - Frontend: React, Vite, Tailwind CSS  
-
-## Installation
-
-### Backend
-1. Navigate to the backend directory
-2. Execute the engine:
-   ```bash
-   go run main.go 
