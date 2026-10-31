@@ -516,7 +516,7 @@ func fetchGamerPowerPrimeGames() {
 			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 			seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, "Amazon Prime Gaming")
 			execDB(insertQuery, "prime_"+strconv.Itoa(deal.ID), deal.Title, "Amazon Prime Gaming", deal.Thumbnail, originalPrice, deal.Description, endDate, deal.OpenGiveawayUrl, seoKeywords)
-			fmt.Println("💾 Saved Active (Prime Gaming):", deal.Title)
+			fmt.Println("Saved Active (Prime Gaming):", deal.Title)
 		}
 	}
 
