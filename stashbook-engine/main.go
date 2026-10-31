@@ -141,7 +141,7 @@ func main() {
 
 	execDB("UPDATE free_games SET is_expired = 1")
 
-	fmt.Println("🚀 Starting Aggregation Engines...")
+	fmt.Println("Starting Aggregation Engines...")
 
 	engines := []struct {
 		label string
@@ -169,7 +169,7 @@ func main() {
 	}
 	wg.Wait()
 
-	fmt.Println("✅ All Engines executed successfully. Writing static assets...")
+	fmt.Println("All Engines executed successfully. Writing static assets...")
 
 	if err := writeGamesJSON(); err != nil {
 		log.Fatalf("failed to write games.json: %v", err)
@@ -181,8 +181,8 @@ func main() {
 		log.Fatalf("failed to write sitemap.xml: %v", err)
 	}
 
-	fmt.Println("✅ Wrote public/games.json and public/books.json")
-	fmt.Println("✅ Wrote public/sitemap.xml")
+	fmt.Println("Wrote public/games.json and public/books.json")
+	fmt.Println("Wrote public/sitemap.xml")
 	os.Exit(0)
 }
 
@@ -288,7 +288,7 @@ func fetchAndStoreEpicGames() {
 			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 			seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", game.Title, "Epic Games")
 			execDB(insertQuery, "epic_"+game.ID, game.Title, "Epic Games", imageUrl, float64(game.Price.TotalPrice.OriginalPrice)/100.0, desc, "Limited Time (Epic Weekly)", gameUrl, seoKeywords)
-			fmt.Println("💾 Saved Active (Epic):", game.Title)
+			fmt.Println("Saved Active (Epic):", game.Title)
 		}
 	}
 }
@@ -406,7 +406,7 @@ func fetchCheapSharkDeals() {
 			insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 			seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, platformLabel)
 			execDB(insertQuery, "cs_"+deal.DealID, deal.Title, platformLabel, deal.Thumb, normalPrice, desc, "Limited Time", gameUrl, seoKeywords)
-			fmt.Println("💾 Saved Active (CheapShark):", deal.Title)
+			fmt.Println("Saved Active (CheapShark):", deal.Title)
 		}
 	}
 }
@@ -461,13 +461,13 @@ func selfTrackSteamHistory() {
 					insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 					seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", title, "Steam (Tracked F2P)")
 					execDB(insertQuery, "tracker_"+appID, title, "Steam (Tracked F2P)", headerImage, lastPrice, desc, "Permanent", gameUrl, seoKeywords)
-					fmt.Println("🚨 F2P TRANSITION CAUGHT BY TRACKER:", title)
+					fmt.Println("F2P TRANSITION CAUGHT BY TRACKER:", title)
 				}
 				execDB("UPDATE price_history SET last_price = ? WHERE app_id = ?", currentPrice, appID)
 			}
 		})
 	}
-	fmt.Println("📊 Internal Price History Updated.")
+	fmt.Println("Internal Price History Updated.")
 }
 
 func fetchGamerPowerPrimeGames() {
@@ -480,13 +480,13 @@ func fetchGamerPowerPrimeGames() {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		fmt.Println("❌ GamerPower Network Error:", err)
+		fmt.Println("GamerPower Network Error:", err)
 		return
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		fmt.Printf("❌ GamerPower API Error. Status Code: %d\n", resp.StatusCode)
+		fmt.Printf("GamerPower API Error. Status Code: %d\n", resp.StatusCode)
 		return
 	}
 
@@ -520,7 +520,7 @@ func fetchGamerPowerPrimeGames() {
 		}
 	}
 
-	fmt.Printf("✅ Checked %d global offers. Found %d active on Amazon Prime Gaming.\n", len(deals), primeCount)
+	fmt.Printf("Checked %d global offers. Found %d active on Amazon Prime Gaming.\n", len(deals), primeCount)
 }
 
 func fetchGamerPowerGlobalGames() {
@@ -577,7 +577,7 @@ func fetchGamerPowerGlobalGames() {
 		addedCount++
 	}
 
-	fmt.Printf("✅ Engine 6: Added %d games from GOG, itch.io, and other platforms.\n", addedCount)
+	fmt.Printf("Engine 6: Added %d games from GOG, itch.io, and other platforms.\n", addedCount)
 }
 
 func getSteamDescription(appID string) string {
@@ -663,7 +663,7 @@ func getEpicDescription(title string) string {
 func fetchOfficialLegendaryDeals() {
 	var caughtCount int
 
-	fmt.Println("🔍 Scanning Steam Global Top Sellers...")
+	fmt.Println("Scanning Steam Global Top Sellers...")
 
 	steamURL := "https://store.steampowered.com/search/results/?query&start=0&count=100&dynamic_data=&sort_by=Top_Sellers&filter=globaltopsellers&specials=1&infinite=1"
 
@@ -735,7 +735,7 @@ func fetchOfficialLegendaryDeals() {
 							insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 							seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", title, "Steam (Iconic)")
 							execDB(insertQuery, "legendary_steam_"+appID, title, "Steam (Iconic)", headerImage, finalPrice, desc, "Unknown", gameUrl, seoKeywords)
-							fmt.Printf("🎯 STEAM ICONIC SECURED: %s (%.0f%% OFF)\n", title, discountPercent)
+							fmt.Printf("STEAM ICONIC SECURED: %s (%.0f%% OFF)\n", title, discountPercent)
 							caughtCount++
 						}
 					}
@@ -745,7 +745,7 @@ func fetchOfficialLegendaryDeals() {
 		}
 	}
 
-	fmt.Println("🔍 Scanning Epic Games Iconic Deals...")
+	fmt.Println("Scanning Epic Games Iconic Deals...")
 	epicURL := "https://www.cheapshark.com/api/1.0/deals?storeID=25&sortBy=Savings&pageNumber=0&pageSize=100"
 	epicResp, epicErr := http.Get(epicURL)
 	if epicErr == nil {
@@ -770,7 +770,7 @@ func fetchOfficialLegendaryDeals() {
 				insertQuery := `INSERT OR REPLACE INTO free_games (id, title, platform, image_url, original_price, is_expired, description, end_date, game_url, seo_keywords) VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, ?)`
 				seoKeywords := fmt.Sprintf("Free %s, %s free game, discount, PC deals", deal.Title, "Epic Games (Iconic)")
 				execDB(insertQuery, "legendary_epic_"+deal.DealID, deal.Title, "Epic Games (Iconic)", deal.Thumb, salePrice, desc, "Unknown", gameUrl, seoKeywords)
-				fmt.Printf("🎯 EPIC ICONIC SECURED: %s (%.0f%% OFF)\n", deal.Title, savings)
+				fmt.Printf("EPIC ICONIC SECURED: %s (%.0f%% OFF)\n", deal.Title, savings)
 				caughtCount++
 			}
 		}
@@ -780,7 +780,7 @@ func fetchOfficialLegendaryDeals() {
 }
 
 func fetchFreeTechBooks() {
-	fmt.Println("🔍 Scanning for Free Technical Books...")
+	fmt.Println("Scanning for Free Technical Books...")
 
 	resp, err := http.Get("https://www.dbooks.org/api/recent")
 	if err != nil {
@@ -805,7 +805,7 @@ func fetchFreeTechBooks() {
 		count++
 	}
 
-	fmt.Printf("✅ Engine 8: Tech Vault Hunt finished. Secured %d Free Books.\n", count)
+	fmt.Printf("Engine 8: Tech Vault Hunt finished. Secured %d Free Books.\n", count)
 }
 
 func publicAssetPath(name string) string {
