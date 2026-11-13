@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import GameCard from './GameCard';
@@ -11,7 +11,7 @@ const groupGamesByPlatform = (gamesList) => {
   const grouped = {};
   gamesList.forEach(game => {
     const pName = game.platform.toLowerCase();
-    let groupName = "Other Stores";
+    let groupName;
     
     if (pName.includes("epic")) groupName = "Epic Games";
     else if (pName.includes("steam")) groupName = "Steam";

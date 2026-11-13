@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  # Needed by actions/cache to restore and save the engine database.
+  actions: write
 
 jobs:
   scrape:
@@ -24,6 +26,21 @@ jobs:
           go-version-file: stashbook-engine/go.mod
           cache-dependency-path: stashbook-engine/go.sum
 
+      # The engine keeps working state (expired offers, tracked prices) in
+      # stashbook.db. The database is not committed anymore; it is restored
+      # from the previous run's cache instead. The key is unique per run so
+      # the updated database is saved again afterwards, while restore-keys
+      # falls back to the most recent cache. A cold start (no cache) still
+      # works: the engine recreates the schema and repopulates the current
+      # offers; only accumulated history is lost.
+      - name: Restore database cache
+        uses: actions/cache@v4
+        with:
+          path: stashbook-engine/stashbook.db
+          key: stashbook-db-${{ github.run_id }}
+          restore-keys: |
+            stashbook-db-
+
       - name: Run aggregation engines
         working-directory: stashbook-engine
         run: go run main.go
@@ -32,5 +49,5 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/games.json public/books.json public/sitemap.xml stashbook-engine/stashbook.db
+          git add public/games.json public/books.json public/sitemap.xml
           git diff --staged --quiet || (git commit -m "chore: auto-update assets" && git pull --rebase --autostash origin main && git push)

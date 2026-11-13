@@ -1,4 +1,3 @@
-import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { slugify } from './utils/stringUtils';

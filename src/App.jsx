@@ -1,13 +1,15 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 
 const Home = lazy(() => import('./Home'));
 const About = lazy(() => import('./About'));
 const Contact = lazy(() => import('./components/Contact'));
+const Privacy = lazy(() => import('./Privacy'));
 const IconicItems = lazy(() => import('./IconicItems'));
 const Books = lazy(() => import('./Books'));
 const GameDetails = lazy(() => import('./GameDetails'));
+const NotFound = lazy(() => import('./NotFound'));
 
 function Navigation() {
   const location = useLocation();
@@ -46,9 +48,11 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
                 <Route path="/iconic" element={<IconicItems />} />
                 <Route path="/books" element={<Books />} />
                 <Route path="/game/:slug" element={<GameDetails />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </ErrorBoundary>
@@ -58,6 +62,7 @@ export default function App() {
           <div className="flex flex-wrap justify-center gap-3 md:gap-6 lg:gap-10 text-[8px] md:text-[10px] lg:text-xs tracking-widest uppercase text-retro-gray">
             <Link to="/about" className="hover:text-retro-orange transition-colors duration-300">About</Link>
             <Link to="/contact" className="hover:text-retro-orange transition-colors duration-300">Contact Us</Link>
+            <Link to="/privacy" className="hover:text-retro-orange transition-colors duration-300">Privacy</Link>
           </div>
           <p className="text-[8px] md:text-[9px] tracking-wider text-retro-gray/40 uppercase">
             © {new Date().getFullYear()} StashBook
