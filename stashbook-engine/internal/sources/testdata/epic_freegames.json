@@ -1,0 +1,419 @@
+{
+  "data": {
+    "Catalog": {
+      "searchStore": {
+        "elements": [
+          {
+            "title": "Alien: Isolation",
+            "id": "d37f3694e7a04edb8347f3cb6320f9d3",
+            "namespace": "df37f065c3f14eadbf011177396e2966",
+            "description": "Discover the true meaning of fear in Alien: Isolation, a survival horror set in an atmosphere of constant dread and mortal danger...   Created using the CATHODE\u2122 engine.",
+            "effectiveDate": "2020-12-21T16:00:00.000Z",
+            "offerType": "BASE_GAME",
+            "expiryDate": null,
+            "viewableDate": "2020-12-21T16:00:00.000Z",
+            "status": "ACTIVE",
+            "isCodeRedemptionOnly": false,
+            "keyImages": [
+              {
+                "type": "OfferImageWide",
+                "url": "https://cdn1.epicgames.com/df37f065c3f14eadbf011177396e2966/offer/EGS_AlienIsolation_CreativeAssembly_S5-1920x1080-1cf3b9a86adcefeebf903451b1b3fb49.jpg"
+              },
+              {
+                "type": "OfferImageTall",
+                "url": "https://cdn1.epicgames.com/df37f065c3f14eadbf011177396e2966/offer/EGS_AlienIsolation_CreativeAssembly_S6-1200x1600-af00adc8f67a7c6138cce183ac1e9503.jpg"
+              },
+              {
+                "type": "Thumbnail",
+                "url": "https://cdn1.epicgames.com/df37f065c3f14eadbf011177396e2966/offer/EGS_AlienIsolation_CreativeAssembly_S6-1200x1600-af00adc8f67a7c6138cce183ac1e9503.jpg"
+              },
+              {
+                "type": "CodeRedemption_340x440",
+                "url": "https://cdn1.epicgames.com/df37f065c3f14eadbf011177396e2966/offer/EGS_AlienIsolation_CreativeAssembly_S6-1200x1600-af00adc8f67a7c6138cce183ac1e9503.jpg"
+              },
+              {
+                "type": "DieselStoreFrontWide",
+                "url": "https://cdn1.epicgames.com/df37f065c3f14eadbf011177396e2966/offer/EGS_AlienIsolation_CreativeAssembly_S5-1920x1080-1cf3b9a86adcefeebf903451b1b3fb49.jpg"
+              },
+              {
+                "type": "DieselStoreFrontTall",
+                "url": "https://cdn1.epicgames.com/df37f065c3f14eadbf011177396e2966/offer/EGS_AlienIsolation_CreativeAssembly_S6-1200x1600-af00adc8f67a7c6138cce183ac1e9503.jpg"
+              },
+              {
+                "type": "heroCarouselVideo",
+                "url": "com.epicgames.video://db158029-97be-45f7-9a3f-c89f95c9b532"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g1a-01-1920x1080-b65e51b6fb2e.jpg"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g1a-02-1920x1080-7e870d423c46.jpg"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g1a-03-1920x1080-14d440b45f8a.jpg"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g1a-04-1920x1080-99a3d5d4610a.jpg"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g1a-05-1920x1080-af77e3dfaf2f.jpg"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g1a-06-1920x1080-4c834bac0133.jpg"
+              },
+              {
+                "type": "GalleryImage",
+                "url": "https://cdn2.unrealengine.com/egs-alienisolation-creativeassembly-g2-00-1920x1080-40e07dae74c0.jpg"
+              }
+            ],
+            "seller": {
+              "id": "o-q3zwbk8kbbbgar9ql3x7d43rjj8bjl",
+              "name": "SEGA of Europe"
+            },
+            "productSlug": "alien-isolation",
+            "urlSlug": "lethegeneralaudience",
+            "url": null,
+            "items": [
+              {
+                "id": "4646166ab44c49b0a83e00ab59df5292",
+                "namespace": "df37f065c3f14eadbf011177396e2966"
+              }
+            ],
+            "customAttributes": [
+              {
+                "key": "com.epicgames.app.blacklist",
+                "value": "[]"
+              },
+              {
+                "key": "publisherName",
+                "value": "SEGA"
+              },
+              {
+                "key": "developerName",
+                "value": "Creative Assembly"
+              },
+              {
+                "key": "com.epicgames.app.productSlug",
+                "value": "alien-isolation"
+              }
+            ],
+            "categories": [
+              {
+                "path": "freegames"
+              },
+              {
+                "path": "games"
+              },
+              {
+                "path": "games/edition"
+              },
+              {
+                "path": "games/edition/base"
+              },
+              {
+                "path": "applications"
+              }
+            ],
+            "tags": [
+              {
+                "id": "1216"
+              },
+              {
+                "id": "21122"
+              },
+              {
+                "id": "21138"
+              },
+              {
+                "id": "21139"
+              },
+              {
+                "id": "21140"
+              },
+              {
+                "id": "21141"
+              },
+              {
+                "id": "21894"
+              },
+              {
+                "id": "21127"
+              },
+              {
+                "id": "21129"
+              },
+              {
+                "id": "1370"
+              },
+              {
+                "id": "9547"
+              },
+              {
+                "id": "21149"
+              }
+            ],
+            "catalogNs": {
+              "mappings": [
+                {
+                  "pageSlug": "alien-isolation",
+                  "pageType": "productHome"
+                }
+              ]
+            },
+            "offerMappings": [
+              {
+                "pageSlug": "alien-isolation",
+                "pageType": "productHome"
+              }
+            ],
+            "price": {
+              "totalPrice": {
+                "discountPrice": 3999,
+                "originalPrice": 3999,
+                "voucherDiscount": 0,
+                "discount": 0,
+                "currencyCode": "USD",
+                "currencyInfo": {
+                  "decimals": 2
+                },
+                "fmtPrice": {
+                  "originalPrice": "$39.99",
+                  "discountPrice": "$39.99",
+                  "intermediatePrice": "$39.99"
+                },
+                "dualPrice": null
+              },
+              "lineOffers": [
+                {
+                  "appliedRules": []
+                }
+              ]
+            },
+            "promotions": {
+              "promotionalOffers": [],
+              "upcomingPromotionalOffers": [
+                {
+                  "promotionalOffers": [
+                    {
+                      "startDate": "2026-11-19T16:00:00.000Z",
+                      "endDate": "2026-11-26T16:00:00.000Z",
+                      "discountSetting": {
+                        "discountType": "PERCENTAGE",
+                        "discountPercentage": 0
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "title": "Knightica",
+            "id": "9975548b6d404a94b8a9bdb34cad49e9",
+            "namespace": "02d659f31e1c43a78c43fd9fd9edc089",
+            "description": "Recruit units, place them strategically, and find the synergies in this Roguelike AutoBattler!\nKnightica lets you guide a warband through challenges to free the Kingdoms.\nDiscover combinations, weave powerful enchants, face dangerous monsters, and lead your army to victory!",
+            "effectiveDate": "2026-11-12T16:00:00.000Z",
+            "offerType": "BASE_GAME",
+            "expiryDate": null,
+            "viewableDate": "2026-11-05T16:00:00.000Z",
+            "status": "ACTIVE",
+            "isCodeRedemptionOnly": false,
+            "keyImages": [
+              {
+                "type": "OfferImageWide",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-1nuxm.png"
+              },
+              {
+                "type": "OfferImageTall",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-1xc3d.png"
+              },
+              {
+                "type": "Thumbnail",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-1xc3d.png"
+              },
+              {
+                "type": "heroCarouselVideo",
+                "url": "com.epicgames.video.qs://5d169b8a-d732-4b8d-9e60-b27b125dac05?cover=https%3A%2F%2Fcdn1.epicgames.com%2Fspt-assets%2F357100ca5613420e98208c5f14585e9d%2Fknightica-video-1v018.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-aqy9g.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-1ibrb.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-11a8u.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-v0pin.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-14g79.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-olgo4.png"
+              },
+              {
+                "type": "featuredMedia",
+                "url": "https://cdn1.epicgames.com/spt-assets/357100ca5613420e98208c5f14585e9d/knightica-1osqb.png"
+              }
+            ],
+            "seller": {
+              "id": "o-7jby5x5ez3xmyf5qhgur72hlye379e",
+              "name": "Goblinz Studio SAS"
+            },
+            "productSlug": null,
+            "urlSlug": "72b46f5d95624fd5b7e7d81b7dcaead1",
+            "url": null,
+            "items": [
+              {
+                "id": "abf4eb9c26e24912ae58d2036745d5cf",
+                "namespace": "02d659f31e1c43a78c43fd9fd9edc089"
+              }
+            ],
+            "customAttributes": [
+              {
+                "key": "autoGeneratedPrice",
+                "value": "false"
+              },
+              {
+                "key": "isManuallySetViewableDate",
+                "value": "true"
+              },
+              {
+                "key": "isPromotionalContentUsed",
+                "value": "false"
+              },
+              {
+                "key": "isManuallySetPCReleaseDate",
+                "value": "true"
+              },
+              {
+                "key": "isBlockchainUsed",
+                "value": "false"
+              }
+            ],
+            "categories": [
+              {
+                "path": "freegames"
+              },
+              {
+                "path": "games/edition/base"
+              },
+              {
+                "path": "games/edition"
+              },
+              {
+                "path": "games"
+              }
+            ],
+            "tags": [
+              {
+                "id": "21894"
+              },
+              {
+                "id": "19847"
+              },
+              {
+                "id": "1370"
+              },
+              {
+                "id": "1386"
+              },
+              {
+                "id": "1115"
+              },
+              {
+                "id": "9547"
+              },
+              {
+                "id": "9549"
+              },
+              {
+                "id": "1263"
+              }
+            ],
+            "catalogNs": {
+              "mappings": [
+                {
+                  "pageSlug": "knightica-3be45c",
+                  "pageType": "productHome"
+                }
+              ]
+            },
+            "offerMappings": [
+              {
+                "pageSlug": "knightica-3be45c",
+                "pageType": "productHome"
+              }
+            ],
+            "price": {
+              "totalPrice": {
+                "discountPrice": 0,
+                "originalPrice": 699,
+                "voucherDiscount": 0,
+                "discount": 699,
+                "currencyCode": "USD",
+                "currencyInfo": {
+                  "decimals": 2
+                },
+                "fmtPrice": {
+                  "originalPrice": "$6.99",
+                  "discountPrice": "0",
+                  "intermediatePrice": "0"
+                },
+                "dualPrice": null
+              },
+              "lineOffers": [
+                {
+                  "appliedRules": [
+                    {
+                      "id": "bc81bf6a13dc4ff08e3c229ed9489631",
+                      "endDate": "2026-11-19T16:00:00.000Z",
+                      "discountSetting": {
+                        "discountType": "PERCENTAGE"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "promotions": {
+              "promotionalOffers": [
+                {
+                  "promotionalOffers": [
+                    {
+                      "startDate": "2026-11-12T16:00:00.000Z",
+                      "endDate": "2026-11-19T16:00:00.000Z",
+                      "discountSetting": {
+                        "discountType": "PERCENTAGE",
+                        "discountPercentage": 0
+                      }
+                    }
+                  ]
+                }
+              ],
+              "upcomingPromotionalOffers": []
+            }
+          }
+        ],
+        "paging": {
+          "count": 40,
+          "total": 13
+        }
+      }
+    }
+  }
+}
