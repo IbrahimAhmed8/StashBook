@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 export default function GameCard({ title, platform, image, isExpired, price, description, onClick, titleTag: TitleTag = 'h3' }) {
   const [imageLoaded, setImageLoaded] = useState(false);

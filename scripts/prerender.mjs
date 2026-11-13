@@ -196,6 +196,7 @@ function renderHomeBody(games) {
         <li><a href="/iconic">Iconic Items</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
+        <li><a href="/privacy">Privacy</a></li>
       </ul>
     </nav>
     <section>
@@ -353,6 +354,28 @@ async function main() {
         '@type': 'ContactPage',
         name: 'Contact Us - StashBook',
         url: `${SITE}/contact`,
+        isPartOf: { '@id': `${SITE}/#website` },
+      },
+    },
+    {
+      dir: 'privacy',
+      title: 'Privacy Policy | StashBook',
+      description:
+        'StashBook does not require an account, runs no analytics or advertising trackers, and sets no cookies. Read the full privacy policy.',
+      body: `
+        <article>
+          <h1>Privacy Policy</h1>
+          <p>StashBook is a read-only catalogue of free game offers and books. You can browse the whole site without an account, and we do not ask you for personal information to use it.</p>
+          <p>Browsing StashBook does not send us any personal data. The site runs no analytics and no advertising trackers, and it does not set cookies or store anything in your browser.</p>
+          <p>If you use the contact form, the name, email address and message you enter are sent to us through Web3Forms so we can read and reply to your message.</p>
+          <p><a href="/">Back to StashBook</a></p>
+        </article>
+      `,
+      jsonLd: {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: 'Privacy Policy | StashBook',
+        url: `${SITE}/privacy`,
         isPartOf: { '@id': `${SITE}/#website` },
       },
     },

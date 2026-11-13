@@ -4,11 +4,12 @@ dist/
 build/
 .env
 
+# Engine build output
+stashbook-engine/main
+
 # Database & OS
+# The engine database is a working cache: it is rebuilt by the engine and
+# persisted between CI runs with actions/cache, never committed.
 *.db
 *.sqlite
 .DS_Store
-
-# Allow GitHub Actions to commit the DB
-!stashbook-engine/stashbook.dbstashbook-engine/main
-stashbook-engine/main
