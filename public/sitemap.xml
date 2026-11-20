@@ -63,6 +63,7 @@
   <url><loc>https://stashbook.online/game/company-of-heroes-2</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/company-of-heroes-3</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/crusader-kings-iii</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://stashbook.online/game/death-stranding-directors-cut</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/dredge</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/danganronpa-2-goodbye-despair</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/danganronpa-v3-killing-harmony</loc><changefreq>weekly</changefreq></url>
@@ -74,6 +75,7 @@
   <url><loc>https://stashbook.online/game/dragonkin-the-banished</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/dual-chroma-academy-carols-itchio-giveaway</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/ea-sports-fc-27</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://stashbook.online/game/ea-sports-college-football-27</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/ea-sports-madden-nfl-27</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/euro-truck-simulator-2</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/euro-truck-simulator-2-beyond-the-baltic-sea</loc><changefreq>weekly</changefreq></url>
@@ -108,6 +110,7 @@
   <url><loc>https://stashbook.online/game/hearts-of-iron-iv</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/hi-fi-rush</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/horizon-forbidden-west-complete-edition</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://stashbook.online/game/horizon-zero-dawn-remastered</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/il-2-sturmovik-battle-of-stalingrad</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/it-takes-two</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/jdm-japanese-drift-master</loc><changefreq>weekly</changefreq></url>
@@ -143,10 +146,12 @@
   <url><loc>https://stashbook.online/game/oxygen-not-included</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/persona-3-reload</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/persona-5-royal</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://stashbook.online/game/ratchet-clank-rift-apart</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/riders-republic</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/rune-factory-guardians-of-azuma</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/sonic-x-shadow-generations</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/sos-ops</loc><changefreq>weekly</changefreq></url>
+  <url><loc>https://stashbook.online/game/star-wars-jedi-survivor</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/sausage-hunter-indiegala-giveaway</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/sharknado-vr-rift-giveaway</loc><changefreq>weekly</changefreq></url>
   <url><loc>https://stashbook.online/game/shin-megami-tensei-v-vengeance</loc><changefreq>weekly</changefreq></url>
